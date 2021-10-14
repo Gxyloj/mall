@@ -41,9 +41,9 @@
 <script>
 
 import 'assets/img/icon'
-import Tabbar from "components/common/tabbar/Tabbar";
-import TabbarItem from "components/common/tabbar/TabbarItem";
-import iconSvg from "components/common/iconSvg";
+import Tabbar from "@/components/common/tabbar/Tabbar";
+import TabbarItem from "@/components/common/tabbar/TabbarItem";
+import iconSvg from "@/components/common/iconSvg";
 
 export default {
   name: "MainTabBar",
