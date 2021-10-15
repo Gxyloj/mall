@@ -7,9 +7,21 @@
     </nav-bar>
 
 
-<!--    轮播图-->
-    <home-swiper :banners="banners"
-                 ref="hSwiper"></home-swiper>
+    <!--    轮播图-->
+    <!--        <home-swiper :banners="banners"-->
+    <!--                     ref="hSwiper"></home-swiper>-->
+    <div class="slide">
+      <van-swipe lazy-render indicator-color="#ff8198">
+        <van-swipe-item v-for="(image, index) in banners" :key="image">
+          <a :href="image.link">
+            <img :src="image.image">
+          </a>
+        </van-swipe-item>
+      </van-swipe>
+    </div>
+<!--    推荐-->
+    <home-recommend-view :recommends="recommends  "></home-recommend-view>
+
   </div>
 </template>
 
@@ -17,22 +29,16 @@
 import NavBar from "@/components/common/navbar/NavBar";
 import {getHomeMultidata} from "@/network/home";
 import HomeSwiper from "@/views/home/childComps/HomeSwiper";
-
-
+import HomeRecommendView from "@/views/home/childComps/HomeRecommendView";
 
 
 export default {
   name: "Home",
-  components: {NavBar,HomeSwiper},
-  data(){
+  components: {NavBar, HomeSwiper,HomeRecommendView},
+  data() {
     return {
-      banners:[],
-      recommends:[],
-      data: [
-        "https://ns-strategy.cdn.bcebos.com/ns-strategy/upload/fc_big_pic/part-00693-2745.jpg",
-        "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2190440116,1436403087&fm=26&gp=0.jpg",
-        "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3593656793,3600757928&fm=26&gp=0.jpg",
-      ],
+      banners: [],
+      recommends: [],
     }
   },
   created() {
@@ -42,7 +48,19 @@ export default {
       this.banners = res.data.banner.list;
       this.recommends = res.data.recommend.list;
     })
+
   },
+  setup() {
+    const images = [
+      'https://img.yzcdn.cn/vant/apple-1.jpg',
+      'https://img.yzcdn.cn/vant/apple-2.jpg',
+    ];
+    return {images};
+  },
+  // mounted() {
+  //   this.wWidth = window.innerWidth; // 屏幕宽度
+  //   console.log("宽度", this.wWidth);
+  // }
 
 
 }
@@ -53,4 +71,11 @@ export default {
   background-color: #ff8198;
   color: #fff;
 }
+
+.slide {
+  width: 100%;
+  flex-shrink: 0;
+}
+
+
 </style>
