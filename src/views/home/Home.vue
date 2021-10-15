@@ -28,7 +28,7 @@
 <script>
 import NavBar from "@/components/common/navbar/NavBar";
 import {getHomeMultidata} from "@/network/home";
-import HomeSwiper from "@/views/home/childComps/HomeSwiper";
+import HomeSwiper from "@/views/home/childComps/HomeSwiper_coderwhy";
 import HomeRecommendView from "@/views/home/childComps/HomeRecommendView";
 
 
