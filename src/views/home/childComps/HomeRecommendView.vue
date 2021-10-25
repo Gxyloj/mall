@@ -21,7 +21,7 @@ export default {
     }
   },
   created() {
-    console.log(this.recommends);
+    // console.log(this.recommends);
   }
 }
 </script>

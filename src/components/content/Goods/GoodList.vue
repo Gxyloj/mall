@@ -1,0 +1,36 @@
+<template>
+  <div class="goods">
+    <van-grid :column-num="2" :border="false" :clickable="true">
+      <van-grid-item v-for="item in goods" :url="item.link">
+          <good-list-item :good-item="item">
+          </good-list-item>
+      </van-grid-item>
+
+    </van-grid>
+
+  </div>
+</template>
+
+<script>
+import GoodListItem from "@/components/content/Goods/GoodListItem";
+
+export default {
+  name: "GoodList",
+  props:{
+    goods:{
+      type:Array,
+      default(){
+        return []
+      }
+    }
+  },
+  components:{GoodListItem}
+}
+</script>
+
+<style scoped>
+.goods{
+
+}
+
+</style>
