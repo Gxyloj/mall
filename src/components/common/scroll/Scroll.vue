@@ -30,7 +30,8 @@ export default {
   },
   data(){
     return {
-      scroll:null
+      scroll:null,
+      satrY:0,
     }
   },
   mounted(){
@@ -75,10 +76,14 @@ export default {
         click:true,
         touch:true,
         mouseWheel:true,
+        scrollX:false,
+        scrollY:true,
+        startY:this.satrY,//satrY初始化为0
         ObserveDom:true,
         ObserveImage:true,
         probeType: this.probeType,
-        pullUpLoad:this.pullUpLoad
+        pullUpLoad:this.pullUpLoad,
+
       })//创建scroll
       // this.scroll.refresh()//刷新一次
       if (this.probeType === 2 || this.probeType === 3){
@@ -86,16 +91,17 @@ export default {
           this.$emit('scroll',position)
         })//发送滚动位置事件
       }
-      // if (this.pullUpLoad){
-      //   this.scroll.on('pullingUp',() => {
-      //     this.$emit('pullingUp')
-      //   })//发送滚动到底事件
-      // }
       if (this.pullUpLoad){
-        this.scroll.on('touchEnd',() => {
+        this.scroll.on('pullingUp',() => {
+          this.satrY = this.scroll.scrollY//记录pullingUp时的Y值
           this.$emit('pullingUp')
-        })
+        })//发送滚动到底事件
       }
+      // if (this.pullUpLoad){
+      //   this.scroll.on('touchEnd',() => {
+      //     this.$emit('pullingUp')
+      //   })
+      // }
     }
   },
   created() {

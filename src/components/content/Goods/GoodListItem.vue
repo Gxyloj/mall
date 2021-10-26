@@ -45,6 +45,10 @@ img {
   margin-right: 5px;
 }
 
+.show{
+  display: none;
+}
+
 p{
   margin-top: 1px;
   margin-bottom: 5px;
