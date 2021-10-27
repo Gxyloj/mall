@@ -153,11 +153,11 @@ export default {
       this.$refs.scroll.scroll.scrollTo(0, 200, 500)
     },
     contentScroll(position) {
-      // console.log(position);
+      console.log(position);
       //判断backTop是否显示
       this.isBackTopShow = (-position.y) > 760
       //判断tabControl是否吸顶
-      this.isTabFixed = position.y < -this.tabOffsetTop
+      this.isTabFixed = position.y < -(this.tabOffsetTop - 44)
       // console.log(this.isTabFixed);
     },
     loadMore() {
@@ -209,6 +209,9 @@ export default {
 
 .fixed {
   position: fixed;
+  top: 44px;
+  left: 0;
+  right: 0;
 }
 
 
