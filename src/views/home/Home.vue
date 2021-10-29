@@ -26,7 +26,7 @@
       <template v-slot>
 
         <div class="slide">
-          <van-swipe lazy-render indicator-color="#ff8198" :autoplay="3000" :stop-propagation="false">
+          <van-swipe lazy-render indicator-color="#ff8198" :autoplay="3000000" :stop-propagation="false">
             <van-swipe-item v-for="(image, index) in banners" :key="image">
               <a :href="image.link">
                 <img :src="image.image" @load.once="swiperImageLoad">
@@ -38,10 +38,13 @@
         <home-recommend-view :recommends="recommends  "></home-recommend-view>
         <home-popular></home-popular>
 
+        <div  v-show ="!isTabFixed">
+          <tab-control :titles="['流行','新款','精选']"
+                       @tabClick="tabClick"
+                       ref="tabControl2">
+          </tab-control>
+        </div>
 
-        <tab-control :titles="['流行','新款','精选']"
-                     @tabClick="tabClick"
-                     ref="tabControl2"></tab-control>
 
 
         <good-list :goods="goods[currentType].list">
@@ -154,10 +157,11 @@ export default {
     },
     contentScroll(position) {
       console.log(position);
+      console.log(this.isTabFixed);
       //判断backTop是否显示
       this.isBackTopShow = (-position.y) > 760
       //判断tabControl是否吸顶
-      this.isTabFixed = position.y < -(this.tabOffsetTop - 44)
+      this.isTabFixed = position.y < -703
       // console.log(this.isTabFixed);
     },
     loadMore() {
@@ -183,6 +187,7 @@ export default {
 <style scoped>
 #home {
   /*padding-top: 44px;*/
+height: 100vh;
 }
 
 .home-nav {
