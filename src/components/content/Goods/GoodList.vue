@@ -1,7 +1,7 @@
 <template>
   <div class="goods">
     <van-grid :column-num="2" :border="false" :clickable="true">
-      <van-grid-item v-for="item in goods" :url="item.link">
+      <van-grid-item v-for="item in goods">
           <good-list-item :good-item="item">
           </good-list-item>
       </van-grid-item>
@@ -24,7 +24,13 @@ export default {
       }
     }
   },
-  components:{GoodListItem}
+  components:{GoodListItem},
+  methods:{
+
+  },
+  // mounted() {
+  //   console.log(this.goods);
+  // }
 }
 </script>
 

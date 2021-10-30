@@ -26,7 +26,7 @@
       <template v-slot>
 
         <div class="slide">
-          <van-swipe lazy-render indicator-color="#ff8198" :autoplay="3000000" :stop-propagation="false">
+          <van-swipe lazy-render indicator-color="#ff8198" :autoplay="3000" :stop-propagation="false">
             <van-swipe-item v-for="(image, index) in banners" :key="image">
               <a :href="image.link">
                 <img :src="image.image" @load.once="swiperImageLoad">
@@ -150,6 +150,7 @@ export default {
       }
       this.$refs.tabControl1.currentIndex = index;
       this.$refs.tabControl2.currentIndex = index;
+      this.$refs.scroll.scroll.refresh()
     },
     backClick() {
       // console.log('backClick');
@@ -165,7 +166,7 @@ export default {
       // console.log(this.isTabFixed);
     },
     loadMore() {
-      console.log('上拉加载更多');
+      // console.log('上拉加载更多');
       this.getHomeGoods(this.currentType)
       this.$refs.scroll.scroll.refresh()
     },
@@ -178,6 +179,12 @@ export default {
     }
   },
   mounted() {
+  },
+  activated() {
+    console.log('activated');
+  },
+  deactivated() {
+    console.log('deactivated');
   }
 
 

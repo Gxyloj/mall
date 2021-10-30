@@ -1,5 +1,5 @@
 <template>
-  <div class="good-item">
+  <div class="good-item"  @click="itemClick">
     <img :src="goodItem.show.img" alt="">
     <div class="info-title">
       <p class="name">{{ goodItem.title }}</p>
@@ -19,6 +19,12 @@ export default {
       default() {
         return {}
       }
+    }
+  },
+  methods:{
+    itemClick(){
+      // console.log('点击');
+      this.$router.push('/detail/'+ this.goodItem.iid)
     }
   }
 }

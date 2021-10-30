@@ -3,6 +3,7 @@ import Home from "../views/home/Home";
 import Category from "../views/category/Category";
 import Shoppingcart from "../views/shoppingcart/Shoppingcart";
 import Profile from "../views/profile/Profile";
+import Detail from "@/views/detail/Detail";
 
 
 const routes = [
@@ -25,6 +26,10 @@ const routes = [
   {
     path:'/profile',
     component:Profile
+  },
+  {
+    path:'/detail/:iid',
+    component:Detail
   }
 ]
 
