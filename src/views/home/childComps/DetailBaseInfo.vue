@@ -7,7 +7,7 @@
       <span class="promotion">活动价</span>
     </div>
     <div class="secondaryInfo">
-<!--      <span v-for="item in salesInfo">{{item}}</span>-->
+      <span v-for="item in salesInfo" class="aaa">{{item}}</span>
     </div>
   </div>
 </template>
@@ -59,5 +59,15 @@ export default {
   font-size: 0.5rem;
   padding: 5px;
   border-radius: 8px;
+}
+.secondaryInfo{
+  display: flex;
+}
+.aaa{
+  color: #666666;
+  font-size: 0.4rem;
+  margin-top: 5px;
+  text-align: center;
+  flex: 1;
 }
 </style>
