@@ -3,12 +3,13 @@
     <p class="title">{{itemInfo.title}}</p>
     <div class="mainInfo">
       <span class="nowPrice">￥{{itemInfo.lowNowPrice}}</span>
-      <span class="oldPrice">￥{{itemInfo.lowPrice}}</span>
-      <span class="promotion">活动价</span>
+      <span class="oldPrice" v-show="!isPromotion">￥{{itemInfo.lowPrice}}</span>
+      <span class="promotion" >活动价</span>
     </div>
     <div class="secondaryInfo">
       <span v-for="item in salesInfo" class="aaa">{{item}}</span>
     </div>
+    <hr style="border:1px solid #D5D5D5"/>
   </div>
 </template>
 
@@ -28,8 +29,14 @@ export default {
 
     }
   },
+  computed:{
+    isPromotion(){
+      return this.itemInfo.lowNowPrice === this.itemInfo.lowPrice
+    }
+  },
   created() {
     // console.log(this.salesInfo);
+    console.log(this.isPromotion);
 
   }
 }
@@ -39,6 +46,7 @@ export default {
 *{
   padding:0 3px;
 }
+
 .title{
   /*font-weight: bold;*/
   font-size: 1.2rem;
