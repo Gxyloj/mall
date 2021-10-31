@@ -44,7 +44,7 @@ export default {
       this.salesInfo = res.result.columns
       //店铺等 信息
       this.shopInfo = res.result.shopInfo
-      // console.log(this.shopInfo);
+      console.log(this.shopInfo);
       // console.log(this.shopInfo.services[this.shopInfo.services.length - 1].name);
 
     })
