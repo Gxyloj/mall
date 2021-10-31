@@ -1,5 +1,5 @@
 <template>
-  <nav-bar>
+  <nav-bar style="background-color: #fff">
     <template v-slot:left>
       <div>
         <icon-svg icon-class="fanhui"

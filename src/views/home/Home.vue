@@ -181,10 +181,10 @@ export default {
   mounted() {
   },
   activated() {
-    console.log('activated');
+    // console.log('activated');
   },
   deactivated() {
-    console.log('deactivated');
+    // console.log('deactivated');
   }
 
 

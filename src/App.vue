@@ -6,7 +6,7 @@
       </keep-alive>
     </router-view>
 
-    <main-tab-bar></main-tab-bar>
+    <main-tab-bar v-show="this.$route.path.slice(1, 7)!=='detail'"></main-tab-bar>
   </div>
 </template>
 
@@ -17,7 +17,10 @@ import Home from "@/views/home/Home"
 
 export default {
   name: 'App',
-  components: {MainTabBar, Home}
+  components: {MainTabBar, Home},
+  mounted() {
+
+  }
 }
 </script>
 
