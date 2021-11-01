@@ -73,7 +73,7 @@ export default {
   data() {
     return {}
   },
-  filters: {
+  filters: {//已弃用
     sellCountFilter: function (value) {
       if (value < 1000) return value;
       return (value/10000).toFixed(1) + '万'
