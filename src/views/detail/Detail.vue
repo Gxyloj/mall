@@ -5,7 +5,10 @@
   <detail-swipe :swipeImg="swipeImg"></detail-swipe>
   <detail-base-info :itemInfo="itemInfo"
                     :salesInfo="salesInfo"
-                    :shopInfo="shopInfo"></detail-base-info>
+                    :shopInfo="shopInfo"
+                    :detailInfo="detailInfo"></detail-base-info>
+  <detail-shop-info :shopInfo="shopInfo"></detail-shop-info>
+  <detail-image-info :detailInfo="detailInfo"></detail-image-info>
 
 
 
@@ -15,11 +18,13 @@
 import DetailNav from "@/views/detail/childComps/DetailNav";
 import DetailSwipe from "@/views/detail/childComps/DetailSwipe";
 import DetailBaseInfo from "@/views/detail/childComps/DetailBaseInfo";
+import DetailShopInfo from "@/views/detail/childComps/DetailShopInfo";
+import DetailImageInfo from "@/views/detail/childComps/DetailImageInfo";
 import {getDetail} from "@/network/detail";
 
 export default {
   name: "Detail",
-  components:{DetailNav, DetailSwipe, DetailBaseInfo},
+  components:{DetailNav, DetailSwipe, DetailBaseInfo, DetailShopInfo, DetailImageInfo},
   data(){
     return {
       iid:null,
@@ -27,6 +32,7 @@ export default {
       itemInfo:{},
       salesInfo:[],
       shopInfo:{},
+      detailInfo:{},
     }
   },
   created() {
@@ -44,9 +50,8 @@ export default {
       this.salesInfo = res.result.columns
       //店铺等 信息
       this.shopInfo = res.result.shopInfo
-      console.log(this.shopInfo);
-      // console.log(this.shopInfo.services[this.shopInfo.services.length - 1].name);
-
+      //详情等 信息
+      this.detailInfo = res.result.detailInfo
     })
   }
 
