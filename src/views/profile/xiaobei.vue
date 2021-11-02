@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="currentTime!==null">
     <van-nav-bar
       left-text="身份码"
       left-arrow
@@ -75,7 +75,7 @@ export default {
   data() {
     return {
       timer: '',
-      currentTime: new Date()
+      currentTime: null
     }
   },
   created() {
