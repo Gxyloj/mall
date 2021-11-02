@@ -12,13 +12,25 @@ export default {
   name: "Profile",
   data(){
     return{
-      name:'姓名',
+
+    }
+  },
+  computed:{
+    name:{
+      get(){
+        return this.$store.state.xb_name
+      },
+      set(value){
+        this.$store.commit('updateName',value)
+      }
+
     }
   },
   methods:{
     click(){
-      this.$router.push('/workbench/' + this.name)
-    }
+      this.$router.push('/workbench')
+    },
+
   },
   created() {
     console.log(this.name);

@@ -5,11 +5,13 @@
 </template>
 
 <script>
+import Profile from "@/views/profile/Profile";
 export default {
   name: "WorkBench",
+  components: {Profile},
   methods:{
     xiaobei(){
-      this.$router.push('/xiaobei/' + this.name)
+      this.$router.push('/xiaobei')
     }
   },
   data(){
@@ -28,14 +30,15 @@ export default {
 <style scoped>
 .profile{
   height: 100vh;
-  background-size: contain;
+  background-size: 100vw auto;
   background-image: url("../../assets/img/xb_bg.jpg");
 }
+
 button{
-  opacity: 0;
+  opacity: 1;
   position: absolute;
-  width: 200px;
-  height: 100px;
+  width: 250px;
+  height: 150px;
   border: none;
   bottom: 13vh;
 }

@@ -34,11 +34,11 @@ const routes = [
     component:Detail
   },
   {
-    path:'/xiaobei/:name',
+    path:'/xiaobei',
     component: xiaobei
   },
   {
-    path: '/workbench/:name',
+    path: '/workbench',
     component: WorkBench
   }
 ]

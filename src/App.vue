@@ -6,7 +6,7 @@
       </keep-alive>
     </router-view>
 
-    <main-tab-bar v-show="this.$route.path ==='xiaobei'"></main-tab-bar>
+    <main-tab-bar v-show="showTabBar"></main-tab-bar>
   </div>
 </template>
 <!--
@@ -20,8 +20,13 @@ import Home from "@/views/home/Home"
 export default {
   name: 'App',
   components: {MainTabBar, Home},
-  mounted() {
-
+  computed:{
+    showTabBar(){
+      return this.$route.path!=='/xiaobei'&&
+        this.$route.path!=='/profile'&&
+        this.$route.path!=='/workbench'&&
+        this.$route.path.slice(1,7)!=='detail'
+    }
   }
 }
 </script>
