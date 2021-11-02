@@ -1,32 +1,39 @@
 <template>
   <div class="profile">
-    <button @click="xiaobei"></button>
+    <input type="text"  v-model="name">
+    <button @click="click">GO</button>
   </div>
+
 </template>
 
 <script>
+
 export default {
   name: "Profile",
-  methods:{
-    xiaobei(){
-      this.$router.push('/xiaobei')
+  data(){
+    return{
+      name:'姓名',
     }
+  },
+  methods:{
+    click(){
+      this.$router.push('/workbench/' + this.name)
+    }
+  },
+  created() {
+    console.log(this.name);
   }
 }
 </script>
 
 <style scoped>
 .profile{
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100vh;
-  background-size: contain;
-  background-image: url("../../assets/img/xb_bg.jpg");
+  font-family: Helvetica;
+  background-color: #eee;
 }
-button{
-  opacity: 0;
-  position: absolute;
-  width: 200px;
-  height: 100px;
-  border: none;
-  bottom: 13vh;
-}
+
 </style>

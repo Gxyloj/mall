@@ -19,7 +19,7 @@
             <icon-svg icon-class="wode"></icon-svg>
           </td>
           <td><span>姓名</span></td>
-          <td><p>欧骏</p></td>
+          <td><p>{{ name }}</p></td>
         </tr>
         <tr>
           <td>
@@ -75,7 +75,8 @@ export default {
   data() {
     return {
       timer: '',
-      currentTime: null
+      currentTime: null,
+      name:''
     }
   },
   created() {
@@ -97,6 +98,7 @@ export default {
       // console.log(new Date().getDate());
       // console.log(this.aa());
     }, 1000);
+    this.name = this.$route.params.name
   },
   methods: {
     appendZero(obj) {
@@ -107,7 +109,8 @@ export default {
       }
     },
 
-  }
+  },
+
 }
 </script>
 

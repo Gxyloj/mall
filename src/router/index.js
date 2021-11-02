@@ -5,6 +5,7 @@ import Shoppingcart from "../views/shoppingcart/Shoppingcart";
 import Profile from "../views/profile/Profile";
 import Detail from "@/views/detail/Detail";
 import xiaobei from "@/views/profile/xiaobei";
+import WorkBench from "@/views/profile/WorkBench";
 
 
 const routes = [
@@ -33,8 +34,12 @@ const routes = [
     component:Detail
   },
   {
-    path:'/xiaobei',
+    path:'/xiaobei/:name',
     component: xiaobei
+  },
+  {
+    path: '/workbench/:name',
+    component: WorkBench
   }
 ]
 
