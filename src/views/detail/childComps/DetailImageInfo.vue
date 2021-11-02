@@ -23,21 +23,24 @@ export default {
     }
   },
   created() {
-    console.log(this.detailInfo);
+    // console.log(this.detailInfo);
   }
 }
 </script>
 
 <style scoped>
 .detail-info {
-  padding: 10px;
+  border-bottom: 8px solid #f2f5f8;
+
 }
 
 .detail-info .start {
+  margin: 10px;
   float: left;
 }
 
 .detail-info .end {
+  margin: 10px;
   float: right;
 }
 

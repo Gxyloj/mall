@@ -15,16 +15,7 @@ export default {
 </script>
 
 <style scoped>
-button{
-  position: fixed;
-  right: 10px;
-  bottom: 10px;
-  width: 12vw;
-  height: 12vw;
-  border-radius: 50%;
-  border: none;
 
-}
 
 .back-top{
   /*width: 100%;*/
@@ -35,6 +26,5 @@ button{
   width: 10vw;
   height: 10vw;
   border-radius: 50%;
-  border: none;
 }
 </style>

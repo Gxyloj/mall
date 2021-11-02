@@ -6,10 +6,12 @@
       </keep-alive>
     </router-view>
 
-    <main-tab-bar v-show="this.$route.path.slice(1, 7)!=='detail'"></main-tab-bar>
+    <main-tab-bar v-show="this.$route.path ==='xiaobei'"></main-tab-bar>
   </div>
 </template>
-
+<!--
+/xiaobei
+-->
 <script>
 
 import MainTabBar from "components/content/MainTabBar/MainTabBar";

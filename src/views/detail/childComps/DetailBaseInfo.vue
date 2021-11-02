@@ -57,7 +57,7 @@ export default {
 
   },
   created() {
-    console.log(this.detailInfo);
+    // console.log(this.detailInfo);
     // console.log(Object.keys(this.shopInfo).length);
     // console.log(this.shopInfo.services[this.shopInfo.services.length - 1].name);
     // console.log(this.salesInfo);

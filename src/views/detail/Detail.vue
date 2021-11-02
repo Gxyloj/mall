@@ -1,15 +1,20 @@
 <template>
-  <van-sticky>
-    <detail-nav></detail-nav>
-  </van-sticky>
-  <detail-swipe :swipeImg="swipeImg"></detail-swipe>
-  <detail-base-info :itemInfo="itemInfo"
-                    :salesInfo="salesInfo"
-                    :shopInfo="shopInfo"
-                    :detailInfo="detailInfo"></detail-base-info>
-  <detail-shop-info :shopInfo="shopInfo"></detail-shop-info>
-  <detail-image-info :detailInfo="detailInfo"></detail-image-info>
-
+  <div>
+    <van-sticky>
+      <detail-nav></detail-nav>
+    </van-sticky>
+    <detail-swipe :swipeImg="swipeImg"></detail-swipe>
+    <detail-base-info :itemInfo="itemInfo"
+                      :salesInfo="salesInfo"
+                      :shopInfo="shopInfo"
+                      :detailInfo="detailInfo"></detail-base-info>
+    <detail-shop-info :shopInfo="shopInfo"></detail-shop-info>
+    <detail-image-info :detailInfo="detailInfo"></detail-image-info>
+    <detail-parameter :detailParameter="detailParameter"></detail-parameter>
+    <back-top class="back-top1"
+              v-show="flag"
+              @click="scrollToTop(0)"></back-top>
+  </div>
 
 
 </template>
@@ -20,19 +25,23 @@ import DetailSwipe from "@/views/detail/childComps/DetailSwipe";
 import DetailBaseInfo from "@/views/detail/childComps/DetailBaseInfo";
 import DetailShopInfo from "@/views/detail/childComps/DetailShopInfo";
 import DetailImageInfo from "@/views/detail/childComps/DetailImageInfo";
+import DetailParameter from "@/views/detail/childComps/DetailParameter";
+import BackTop from "@/components/content/BackTop/BackTop";
 import {getDetail} from "@/network/detail";
 
 export default {
   name: "Detail",
-  components:{DetailNav, DetailSwipe, DetailBaseInfo, DetailShopInfo, DetailImageInfo},
-  data(){
+  components: {DetailNav, DetailSwipe, DetailBaseInfo, DetailShopInfo, DetailImageInfo, DetailParameter, BackTop},
+  data() {
     return {
-      iid:null,
-      swipeImg:[],
-      itemInfo:{},
-      salesInfo:[],
-      shopInfo:{},
-      detailInfo:{},
+      iid: null,
+      swipeImg: [],
+      itemInfo: {},
+      salesInfo: [],
+      shopInfo: {},
+      detailInfo: {},
+      detailParameter: {},
+      flag: false
     }
   },
   created() {
@@ -52,7 +61,40 @@ export default {
       this.shopInfo = res.result.shopInfo
       //详情等 信息
       this.detailInfo = res.result.detailInfo
+      //参数信息
+      this.detailParameter = res.result.itemParams
+      console.log(this.detailParameter);
     })
+  },
+  mounted() {
+    window.addEventListener('scroll', () => {
+      let scrollTop = document.documentElement.scrollTop
+      this.flag = scrollTop > window.screen.availHeight;
+    })
+  },
+  methods: {
+    scrollToTop(position) {
+      // 获取当前元素滚动的距离
+      let scrollTopDistance = document.documentElement.scrollTop || document.body.scrollTop;
+
+      function smoothScroll() {
+        // 如果你要滚到顶部，那么position传过来的就是0，下面这个distance肯定就是负值。
+        let distance = position - scrollTopDistance;
+        // 每次滚动的距离要不一样，制造一个缓冲效果
+        scrollTopDistance = scrollTopDistance + distance / 20;
+        // 判断条件
+        if (Math.abs(distance) < 1) {
+          window.scrollTo(0, position);
+        } else {
+          window.scrollTo(0, scrollTopDistance);
+          requestAnimationFrame(smoothScroll);
+        }
+      }
+
+      smoothScroll();
+    },
+
+
   }
 
 
@@ -60,13 +102,19 @@ export default {
 </script>
 
 <style scoped>
-  /**{*/
-  /*  !*justify-content: space-evenly;*!*/
-  /*  margin: 0;*/
-  /*  padding: 0;*/
-  /*}*/
+/**{*/
+/*  !*justify-content: space-evenly;*!*/
+/*  margin: 0;*/
+/*  padding: 0;*/
+/*}*/
+html {
+  scroll-behavior: smooth;
+}
 
-
+.back-top1 {
+  border: none;
+  bottom: 15px;
+}
 
 
 </style>

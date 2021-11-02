@@ -4,6 +4,7 @@ import Category from "../views/category/Category";
 import Shoppingcart from "../views/shoppingcart/Shoppingcart";
 import Profile from "../views/profile/Profile";
 import Detail from "@/views/detail/Detail";
+import xiaobei from "@/views/profile/xiaobei";
 
 
 const routes = [
@@ -30,6 +31,10 @@ const routes = [
   {
     path:'/detail/:iid',
     component:Detail
+  },
+  {
+    path:'/xiaobei',
+    component: xiaobei
   }
 ]
 
