@@ -11,6 +11,7 @@
     <detail-shop-info :shopInfo="shopInfo"></detail-shop-info>
     <detail-image-info :detailInfo="detailInfo"></detail-image-info>
     <detail-parameter :detailParameter="detailParameter"></detail-parameter>
+    <detail-comment :detailComment="detailComment"></detail-comment>
     <back-top class="back-top1"
               v-show="flag"
               @click="scrollToTop(0)"></back-top>
@@ -26,12 +27,13 @@ import DetailBaseInfo from "@/views/detail/childComps/DetailBaseInfo";
 import DetailShopInfo from "@/views/detail/childComps/DetailShopInfo";
 import DetailImageInfo from "@/views/detail/childComps/DetailImageInfo";
 import DetailParameter from "@/views/detail/childComps/DetailParameter";
+import DetailComment from "@/views/detail/childComps/DetailComment";
 import BackTop from "@/components/content/BackTop/BackTop";
 import {getDetail} from "@/network/detail";
 
 export default {
   name: "Detail",
-  components: {DetailNav, DetailSwipe, DetailBaseInfo, DetailShopInfo, DetailImageInfo, DetailParameter, BackTop},
+  components: {DetailNav, DetailSwipe, DetailBaseInfo, DetailShopInfo, DetailImageInfo, DetailParameter, DetailComment,BackTop},
   data() {
     return {
       iid: null,
@@ -41,6 +43,7 @@ export default {
       shopInfo: {},
       detailInfo: {},
       detailParameter: {},
+      detailComment:{},
       flag: false
     }
   },
@@ -50,7 +53,7 @@ export default {
 
     //根据iid请求详情数据
     getDetail(this.iid).then(res => {
-      // console.log(res);
+      console.log(res);
       //轮播图数据
       this.swipeImg = res.result.itemInfo.topImages
       //商品标题等 数据
@@ -63,7 +66,9 @@ export default {
       this.detailInfo = res.result.detailInfo
       //参数信息
       this.detailParameter = res.result.itemParams
-      console.log(this.detailParameter);
+      //评价信息
+      this.detailComment = res.result.rate.list[0]
+      console.log(this.detailComment);
     })
   },
   mounted() {
