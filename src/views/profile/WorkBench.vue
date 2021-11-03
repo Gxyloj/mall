@@ -35,7 +35,7 @@ export default {
 }
 
 button{
-  opacity: 1;
+  opacity: 0;
   position: absolute;
   width: 250px;
   height: 150px;
