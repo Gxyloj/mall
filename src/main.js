@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import {Swipe,SwipeItem,Sticky,Grid,GridItem,Icon,ConfigProvider,Col,Row,NavBar,Button} from "vant";
+import {Swipe,SwipeItem,Sticky,Grid,GridItem,Icon,ConfigProvider,Col,Row,NavBar,Button,ActionBar,ActionBarIcon,ActionBarButton} from "vant";
 import store from './store'
 
 
@@ -18,5 +18,8 @@ createApp(App)
   .use(Row)
   .use(NavBar)
   .use(Button)
+  .use(ActionBar)
+  .use(ActionBarIcon)
+  .use(ActionBarButton)
   .use(ConfigProvider)
   .mount('#app')

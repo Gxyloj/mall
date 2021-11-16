@@ -13,6 +13,8 @@
     <detail-parameter :detailParameter="detailParameter" ref="parameter"></detail-parameter>
     <detail-comment :detailComment="detailComment" ref="comment"></detail-comment>
     <good-list :goods="recommend" ref="recommend"></good-list>
+<!--    <detail-bottom-bar></detail-bottom-bar>-->
+    <detail-bottom-bar-vant></detail-bottom-bar-vant>
     <back-top class="back-top1"
               v-show="flag"
               @click="scrollToTop(0)"></back-top>
@@ -29,6 +31,8 @@ import DetailShopInfo from "@/views/detail/childComps/DetailShopInfo";
 import DetailImageInfo from "@/views/detail/childComps/DetailImageInfo";
 import DetailParameter from "@/views/detail/childComps/DetailParameter";
 import DetailComment from "@/views/detail/childComps/DetailComment";
+import DetailBottomBar from "@/views/detail/childComps/DetailBottomBar";
+import DetailBottomBarVant from "@/views/detail/childComps/DetailBottomBarVant";
 import BackTop from "@/components/content/BackTop/BackTop";
 import GoodList from "@/components/content/Goods/GoodList";
 import {getDetail, getRecommend} from "@/network/detail";
@@ -44,6 +48,8 @@ export default {
     DetailImageInfo,
     DetailParameter,
     DetailComment,
+    DetailBottomBar,
+    DetailBottomBarVant,
     GoodList,
     BackTop
   },
