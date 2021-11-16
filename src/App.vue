@@ -33,4 +33,7 @@ export default {
 
 <style>
 @import "assets/css/base.css";
+/**{*/
+/*  box-sizing: border-box;*/
+/*}*/
 </style>

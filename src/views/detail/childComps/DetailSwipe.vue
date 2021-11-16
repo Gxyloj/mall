@@ -30,6 +30,9 @@ export default {
   },
   created() {
     // console.log(this.swipeImg);
+  },
+  methods:{
+
   }
 }
 </script>

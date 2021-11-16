@@ -1,17 +1,18 @@
 <template>
-  <div>
+  <div ref="detail-container" @scroll="handleScroll" class="detail-container">
     <van-sticky>
-      <detail-nav></detail-nav>
+      <detail-nav @itemClick="itemClick" ref="nav"></detail-nav>
     </van-sticky>
-    <detail-swipe :swipeImg="swipeImg"></detail-swipe>
+    <detail-swipe :swipeImg="swipeImg" @detailImgLoad="detailImgLoad"></detail-swipe>
     <detail-base-info :itemInfo="itemInfo"
                       :salesInfo="salesInfo"
                       :shopInfo="shopInfo"
                       :detailInfo="detailInfo"></detail-base-info>
     <detail-shop-info :shopInfo="shopInfo"></detail-shop-info>
-    <detail-image-info :detailInfo="detailInfo"></detail-image-info>
-    <detail-parameter :detailParameter="detailParameter"></detail-parameter>
-    <detail-comment :detailComment="detailComment"></detail-comment>
+    <detail-image-info :detailInfo="detailInfo" @detailImgLoad="detailImgLoad"></detail-image-info>
+    <detail-parameter :detailParameter="detailParameter" ref="parameter"></detail-parameter>
+    <detail-comment :detailComment="detailComment" ref="comment"></detail-comment>
+    <good-list :goods="recommend" ref="recommend"></good-list>
     <back-top class="back-top1"
               v-show="flag"
               @click="scrollToTop(0)"></back-top>
@@ -29,11 +30,23 @@ import DetailImageInfo from "@/views/detail/childComps/DetailImageInfo";
 import DetailParameter from "@/views/detail/childComps/DetailParameter";
 import DetailComment from "@/views/detail/childComps/DetailComment";
 import BackTop from "@/components/content/BackTop/BackTop";
-import {getDetail} from "@/network/detail";
+import GoodList from "@/components/content/Goods/GoodList";
+import {getDetail, getRecommend} from "@/network/detail";
+import {debounce, scrollToTop} from "@/common/utils";
 
 export default {
   name: "Detail",
-  components: {DetailNav, DetailSwipe, DetailBaseInfo, DetailShopInfo, DetailImageInfo, DetailParameter, DetailComment,BackTop},
+  components: {
+    DetailNav,
+    DetailSwipe,
+    DetailBaseInfo,
+    DetailShopInfo,
+    DetailImageInfo,
+    DetailParameter,
+    DetailComment,
+    GoodList,
+    BackTop
+  },
   data() {
     return {
       iid: null,
@@ -43,8 +56,12 @@ export default {
       shopInfo: {},
       detailInfo: {},
       detailParameter: {},
-      detailComment:{},
-      flag: false
+      detailComment: {},
+      recommend: [],
+      flag: false,
+      navIndex: 0,
+      currentIndex:0,
+      offsetTop: [],
     }
   },
   created() {
@@ -53,7 +70,7 @@ export default {
 
     //根据iid请求详情数据
     getDetail(this.iid).then(res => {
-      console.log(res);
+      // console.log(res);
       //轮播图数据
       this.swipeImg = res.result.itemInfo.topImages
       //商品标题等 数据
@@ -68,39 +85,90 @@ export default {
       this.detailParameter = res.result.itemParams
       //评价信息
       this.detailComment = res.result.rate.list[0]
-      console.log(this.detailComment);
+      // console.log(this.detailComment);
     })
+    //请求推荐数据
+    getRecommend().then(res => {
+      // console.log(res);
+      this.recommend = res.data.list
+      console.log(this.recommend);
+    })
+
+
   },
   mounted() {
-    window.addEventListener('scroll', () => {
-      let scrollTop = document.documentElement.scrollTop
-      this.flag = scrollTop > window.screen.availHeight;
-    })
-  },
-  methods: {
-    scrollToTop(position) {
-      // 获取当前元素滚动的距离
-      let scrollTopDistance = document.documentElement.scrollTop || document.body.scrollTop;
 
-      function smoothScroll() {
-        // 如果你要滚到顶部，那么position传过来的就是0，下面这个distance肯定就是负值。
-        let distance = position - scrollTopDistance;
-        // 每次滚动的距离要不一样，制造一个缓冲效果
-        scrollTopDistance = scrollTopDistance + distance / 20;
-        // 判断条件
-        if (Math.abs(distance) < 1) {
-          window.scrollTo(0, position);
-        } else {
-          window.scrollTo(0, scrollTopDistance);
-          requestAnimationFrame(smoothScroll);
+    //滚动高度大于一页显示返回最上按钮
+    window.addEventListener('scroll', debounce(() => {
+      let scrollTop = document.documentElement.scrollTop
+      this.flag = scrollTop > window.screen.availHeight;//一屏
+      // console.log(scrollTop);
+
+      //改变对应的currentIndex
+      // this.offsetTop.forEach(i => {
+      //   // console.log(i)
+      //   if (scrollTop > this.offsetTop[i] && scrollTop < this.offsetTop[i+1]){
+      //     console.log(i);
+      //   }
+      // })
+      // let length = this.offsetTop.length
+      // for (let i = 0;i< length;i++){
+      //   let iPos = this.offsetTop[i];
+      //   if ((scrollTop + 44) >= iPos && (scrollTop + 44) < this.offsetTop[i+1]){
+      //     if (this.currentIndex !== i){
+      //       this.currentIndex = i
+      //       this.$refs.nav.currentIndex = this.currentIndex
+      //     }
+      //     break;
+      //   }
+      //
+      // }
+      let length = this.offsetTop.length
+      for (let i = 0;i < length;i++){
+        if (this.currentIndex !== i
+          && ((i < length -1 && (scrollTop + 44 + 8) >= this.offsetTop[i]
+            && (scrollTop + 44 + 8) < this.offsetTop[i+1])
+            || (i === length - 1 && (scrollTop + 44 + 8) >= this.offsetTop[i])))
+        {
+          this.currentIndex = i;
+          this.$refs.nav.currentIndex = this.currentIndex
         }
       }
 
-      smoothScroll();
+    }, 50))
+
+
+  },
+  updated() {
+
+  },
+  methods: {
+    scrollToTop(position) {
+      scrollToTop(position)
     },
+    detailImgLoad() {
+      this.getOffSetTop()
+
+    },
+    itemClick(index) {
+      // console.log(index);
+      document.documentElement.scrollTo({
+        top: this.offsetTop[index] - 44 - 8,
+        left: 0,
+        behavior: 'smooth'
+      })
+    },
+    getOffSetTop() {
+      this.offsetTop = []
+      this.offsetTop.push(0)
+      this.offsetTop.push(this.$refs.parameter.$el.offsetTop)
+      this.offsetTop.push(this.$refs.comment.$el.offsetTop)
+      this.offsetTop.push(this.$refs.recommend.$el.offsetTop)
+      // console.log(this.offsetTop);
+    }
 
 
-  }
+  },
 
 
 }

@@ -6,15 +6,17 @@
         {{ detailInfo.desc }}
       </div>
       <div class="end"></div>
-      <div class="info-key">{{detailInfo.detailImage[0].key}}</div>
+      <div class="info-key">{{ detailInfo.detailImage[0].key }}</div>
       <div class="info-list">
-        <img :src="item" alt="" v-for="item in detailInfo.detailImage[0].list">
+        <img :src="item" alt="" v-for="item in detailInfo.detailImage[0].list" @load="detailImgLoad">
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import {debounce} from "@/common/utils";
+
 export default {
   name: "DetailImageInfo",
   props: {
@@ -24,6 +26,11 @@ export default {
   },
   created() {
     // console.log(this.detailInfo);
+  },
+  methods: {
+    detailImgLoad() {
+      this.$emit('detailImgLoad')
+    }
   }
 }
 </script>
@@ -70,13 +77,13 @@ export default {
   right: 0;
 }
 
-.info-key{
+.info-key {
   padding: 10px;
   color: #333333;
   font-size: .8rem;
 }
 
-.info-list img{
+.info-list img {
   width: 100vw;
 }
 </style>
