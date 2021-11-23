@@ -12,7 +12,8 @@
         <div class="title-item"
              v-for="(item,index) in titles"
              :class="{active:index === this.currentIndex}"
-             @click="itemClick(index)">{{ item }}
+             @click="itemClick(index)">
+          {{ item }}
         </div>
       </div>
 

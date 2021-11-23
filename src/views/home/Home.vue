@@ -179,6 +179,7 @@ export default {
     }
   },
   mounted() {
+
   },
   activated() {
     // console.log('activated');
