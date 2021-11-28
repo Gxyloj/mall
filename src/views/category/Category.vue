@@ -1,118 +1,81 @@
 <template>
-  <div class="wrapper">
-    <ul>
-      <button @click="btnClick">按钮</button>
-      <li>列表1</li>
-      <li>列表2</li>
-      <li>列表3</li>
-      <li>列表4</li>
-      <li>列表5</li>
-      <li>列表6</li>
-      <li>列表7</li>
-      <li>列表8</li>
-      <li>列表9</li>
-      <li>列表10</li>
-      <li>列表11</li>
-      <li>列表12</li>
-      <li>列表13</li>
-      <li>列表14</li>
-      <li>列表15</li>
-      <li>列表16</li>
-      <li>列表17</li>
-      <li>列表18</li>
-      <li>列表19</li>
-      <li>列表20</li>
-      <li>列表21</li>
-      <li>列表22</li>
-      <li>列表23</li>
-      <li>列表24</li>
-      <li>列表25</li>
-      <li>列表26</li>
-      <li>列表27</li>
-      <li>列表28</li>
-      <li>列表29</li>
-      <li>列表30</li>
-      <li>列表31</li>
-      <li>列表32</li>
-      <li>列表33</li>
-      <li>列表34</li>
-      <li>列表35</li>
-      <li>列表36</li>
-      <li>列表37</li>
-      <li>列表38</li>
-      <li>列表39</li>
-      <li>列表40</li>
-      <li>列表41</li>
-      <li>列表42</li>
-      <li>列表43</li>
-      <li>列表44</li>
-      <li>列表45</li>
-      <li>列表46</li>
-      <li>列表47</li>
-      <li>列表48</li>
-      <li>列表49</li>
-      <li>列表50</li>
-      <li>列表50</li>
-      <li>列表50</li>
-      <li>列表50</li>
-      <li>列表50</li>
-      <li>列表50</li>
-      <li>列表50</li>
-      <li>列表50</li>
-      <li>列表50</li>
-      <li>列表50</li>
-      <li>列表50</li>
-      <li>列表50</li>
-      <li>列表50</li>
-      <li>列表50</li>
-      <li>列表50</li>
-    </ul>
-  </div>
+  <van-sticky>
+    <nav-bar style="background-color:#ff8198;color: #fff">
+      <template v-slot:center>
+        分类
+      </template>
+    </nav-bar>
+  </van-sticky>
+
+  <van-tree-select
+    v-model:main-active-index="activeIndex"
+    height="100vh"
+    :items="items"
+    @click-nav="clickNav(activeIndex)"
+  >
+    <template #content>
+      <tab-content-category
+        :activeIndex="activeIndex"
+        :categoryKey="categoryKey"
+        :contentList="contentList"></tab-content-category>
+    </template>
+  </van-tree-select>
+
 </template>
 
 <script>
-import BScroll from 'better-scroll'
+import {getCategoryContentList, getCategoryList} from "@/network/category";
+import TabContentCategory from "@/views/category/childComps/TabContentCategory";
+import NavBar from "@/components/common/navbar/NavBar";
+import {ref} from "vue";
 
 export default {
   name: "Category",
+  components: {TabContentCategory, NavBar},
   data() {
     return {
-      BScroll: null
+      activeIndex: 0,
+      categoryKey: 3627,
+      items: [],
+      contentList: []
     }
   },
-  mounted() {
-    this.BScroll = new BScroll(document.querySelector('.wrapper'), {
-      // 1. probeType 为 0，在任何时候都不派发 scroll 事件，
-      // 2. probeType 为 1，仅仅当手指按在滚动区域上，每隔 momentumLimitTime 毫秒派发一次 scroll 事件，
-      // 3. probeType 为 2，仅仅当手指按在滚动区域上，一直派发 scroll 事件，
-      // 4. probeType 为 3，任何时候都派发 scroll 事件，包括调用 scrollTo 或者触发 momentum 滚动动画
-      probeType:2,
-      click:true,
-      pullUpLoad:true,
+  created() {
+    getCategoryList().then(res => {
+
+      res.data.category.list.forEach((i, index) => {
+        // console.log(i)
+        this.items.push({text: '', categoryKey: ''})
+        this.items[index]['text'] = i.title
+        this.items[index]['categoryKey'] = i.maitKey
+        // console.log(this.items[index]['text'])
+        // console.log(index);
+        // console.log(i.title);
+      })
     })
-    this.BScroll.on('scroll', (position) => {
-      console.log(position);
-    })
-    this.BScroll.on('pullingUp',() => {
-      console.log('上拉加载更多');
-      setTimeout(() => {
-        this.BScroll.finishPullUp()
-      },2000)
+    getCategoryContentList(this.categoryKey).then(res => {
+      console.log(res);
+      this.contentList = res.data.list
     })
   },
-  methods:{
-    btnClick(){
-      console.log('按钮点击');
+  methods: {
+    clickNav(activeIndex) {
+      // console.log('点击左侧',activeIndex);
+      // console.log(this.items[activeIndex]['categoryKey']);
+      this.categoryKey = this.items[activeIndex]['categoryKey']
+      getCategoryContentList(this.categoryKey).then(res => {
+        this.contentList = res.data.list
+      })
     }
   }
 }
 </script>
 
 <style scoped>
-.wrapper {
-  background-color: #4158D0;
-  height: 200px;
-  overflow: hidden;
+::v-deep .van-sidebar-item--select::before {
+  width: 3px;
+  height: 100%;
+  background-color: #ff8198;
 }
 
 </style>

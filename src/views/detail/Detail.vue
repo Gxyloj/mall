@@ -14,7 +14,7 @@
     <detail-comment :detailComment="detailComment" ref="comment"></detail-comment>
     <good-list :goods="recommend" ref="recommend"></good-list>
 <!--    <detail-bottom-bar></detail-bottom-bar>-->
-    <detail-bottom-bar-vant></detail-bottom-bar-vant>
+    <detail-bottom-bar-vant @addToCart="addToCart"></detail-bottom-bar-vant>
     <back-top class="back-top1"
               v-show="flag"
               @click="scrollToTop(0)"></back-top>
@@ -68,6 +68,7 @@ export default {
       navIndex: 0,
       currentIndex:0,
       offsetTop: [],
+      product:{},
     }
   },
   created() {
@@ -97,7 +98,7 @@ export default {
     getRecommend().then(res => {
       // console.log(res);
       this.recommend = res.data.list
-      console.log(this.recommend);
+      // console.log(this.recommend);
     })
 
 
@@ -171,6 +172,20 @@ export default {
       this.offsetTop.push(this.$refs.comment.$el.offsetTop)
       this.offsetTop.push(this.$refs.recommend.$el.offsetTop)
       // console.log(this.offsetTop);
+    },
+    addToCart(){
+      // console.log('购物车')
+      this.product.image = this.swipeImg[0]
+      this.product.title = this.itemInfo.title
+      this.product.desc = this.itemInfo.desc
+      this.product.price = this.itemInfo.lowNowPrice
+      this.product.iid = this.itemInfo.iid
+      this.product.checked = true
+      // console.log(this.product)
+
+      // this.$store.commit('addCart',this.product)
+      this.$store.dispatch('addCart',this.product)
+      this.$toast.success('添加成功')
     }
 
 

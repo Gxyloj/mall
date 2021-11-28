@@ -33,6 +33,7 @@ export default {
   font-size: 16px;
   padding: 10px 0 16px;
   border-bottom: 10px solid #eee;
+  background-color: #fdfdfd;
 }
 
 .recommend>>>img{

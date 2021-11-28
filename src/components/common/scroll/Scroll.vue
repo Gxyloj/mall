@@ -8,8 +8,12 @@
 </template>
 
 <script>
-import BScroll, {ObserveDom, ObserveImage} from "better-scroll";
-BScroll.use(ObserveImage,ObserveDom)
+import BScroll from "better-scroll";
+
+import ObserveDOM from '@better-scroll/observe-dom'
+import ObserveImage from '@better-scroll/observe-image'
+BScroll.use(ObserveDOM,ObserveImage)
+
 export default {
   name: "Scroll",
   props:{

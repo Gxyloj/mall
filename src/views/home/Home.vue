@@ -113,6 +113,7 @@ export default {
     this.getHomeGoods('new')
     this.getHomeGoods('sell')
 
+
   },
   methods: {
     getHomeMultidata() {
