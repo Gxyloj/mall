@@ -19,7 +19,8 @@
             <icon-svg icon-class="wode"></icon-svg>
           </td>
           <td><span>姓名</span></td>
-          <td><p>{{ $store.state.xb_name }}</p></td>
+<!--          <td><p>{{ $store.state.xb_name }}</p></td>-->
+          <td><p>梁夏</p></td>
         </tr>
         <tr>
           <td>

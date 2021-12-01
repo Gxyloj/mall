@@ -8,6 +8,10 @@
   var metaEL = doc.querySelector('meta[name="viewport"]')
 
   //viewport-fit = cover，设置占满整个屏幕
-  metaEL.setAttribute("content","initial-scale=.5, maximum-scale=.5, minimum-scale=.5, user-scalable=no viewport-fit=cover");
+  metaEL.setAttribute("content",
+    "initial-scale=.5," +
+    " maximum-scale=.5," +
+    " minimum-scale=.5," +
+    " user-scalable=no viewport-fit=cover");
 
 })(window)

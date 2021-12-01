@@ -1,30 +1,32 @@
 <template>
   <div class="profile">
     <input type="text"  v-model="name">
-    <button @click="click">GO</button>
+    <button @click="click" :name="name">GO</button>
+    <work-bench v-show="false"></work-bench>
   </div>
 
 </template>
 
 <script>
-
+import WorkBench from "@/views/profile/WorkBench";
 export default {
   name: "Profile",
+  components:{WorkBench},
   data(){
     return{
-
+      name:'姓名'
     }
   },
   computed:{
-    name:{
-      get(){
-        return this.$store.state.xb_name
-      },
-      set(value){
-        this.$store.commit('updateName',value)
-      }
-
-    }
+    // name:{
+    //   get(){
+    //     return this.$store.state.xb_name
+    //   },
+    //   set(value){
+    //     this.$store.commit('updateName',value)
+    //   }
+    //
+    // }
   },
   methods:{
     click(){

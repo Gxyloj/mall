@@ -9,6 +9,11 @@ import Profile from "@/views/profile/Profile";
 export default {
   name: "WorkBench",
   components: {Profile},
+  props:{
+    name:{
+      type:String
+    }
+  },
   methods:{
     xiaobei(){
       this.$router.push('/xiaobei')
@@ -16,14 +21,11 @@ export default {
   },
   data(){
     return{
-      name:''
+
     }
 
   },
-  created() {
-    this.name = this.$route.params.name
-    console.log(this.name);
-  }
+
 }
 </script>
 
