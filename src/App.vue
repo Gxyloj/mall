@@ -9,9 +9,7 @@
     <main-tab-bar v-show="showTabBar"></main-tab-bar>
   </div>
 </template>
-<!--
-/xiaobei
--->
+
 <script>
 
 import MainTabBar from "components/content/MainTabBar/MainTabBar";
@@ -25,7 +23,8 @@ export default {
       return this.$route.path !== '/xiaobei' &&
         this.$route.path !== '/profile' &&
         this.$route.path !== '/workbench' &&
-        this.$route.path.slice(1, 7) !== 'detail'
+        this.$route.path.slice(1, 7) !== 'detail'&&
+        this.$route.path!=='/love03'
       // this.$route.path!=='/shoppingcart'
     }
   },

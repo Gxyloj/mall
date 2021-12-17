@@ -4,7 +4,13 @@ import router from './router'
 import {Swipe,SwipeItem,Sticky,Grid,GridItem,Icon,ConfigProvider,Col,Row,NavBar,Button,ActionBar,ActionBarIcon,ActionBarButton,Checkbox, CheckboxGroup,Card,TreeSelect,Image as VanImage} from "vant";
 import { Toast } from 'vant';
 import store from './store'
-
+router.beforeEach((to, from, next) => {
+  /* 路由发生变化修改页面title */
+  if (to.meta.title) {
+    document.title = to.meta.title
+  }
+  next()
+})
 
 createApp(App)
   .use(router)

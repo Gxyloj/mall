@@ -6,6 +6,7 @@ import Profile from "../views/profile/Profile";
 import Detail from "@/views/detail/Detail";
 import xiaobei from "@/views/profile/xiaobei";
 import WorkBench from "@/views/profile/WorkBench";
+import lsls from "@/views/03/03"
 
 
 const routes = [
@@ -40,6 +41,14 @@ const routes = [
   {
     path: '/workbench',
     component: WorkBench
+  },
+  {
+    path:'/love03',
+    component:lsls,
+    meta:{
+      title:'林珊 😘 '
+    }
+
   }
 ]
 
