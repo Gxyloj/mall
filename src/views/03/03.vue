@@ -200,14 +200,14 @@ export default {
   display: grid;
   align-content: center;
   z-index: 1;
-  height: 100vh;
-  left: 50%;
+  height: 106vh;
+  left: 55%;
   margin-left: -315px;
 }
 
 .bgg li.sphere {
-  width: 650px;
-  height: 650px;
+  width: 550px;
+  height: 550px;
   background: #020024;
   background: radial-gradient(rgba(2, 0, 36, 0.5) 47%, rgba(108, 108, 142, 0.7) 51%, rgba(171, 171, 255, 0.7) 52%, #020024 53%);
 }

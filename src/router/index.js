@@ -7,6 +7,7 @@ import Detail from "@/views/detail/Detail";
 import xiaobei from "@/views/profile/xiaobei";
 import WorkBench from "@/views/profile/WorkBench";
 import lsls from "@/views/03/03"
+import lslsls from "@/views/03/0303"
 
 
 const routes = [
@@ -49,6 +50,10 @@ const routes = [
       title:'林珊 😘 '
     }
 
+  },
+  {
+    path: '/love0303',
+    component: lslsls,
   }
 ]
 
