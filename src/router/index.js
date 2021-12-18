@@ -54,6 +54,9 @@ const routes = [
   {
     path: '/love0303',
     component: lslsls,
+    meta:{
+      title:'😘😘😘'
+    }
   }
 ]
 
