@@ -1,6 +1,7 @@
 # mall
 
 ## 移动端在线商城，后端接口：http://152.136.185.210:7878/api/hy66
+## 已完成：首页、分类、详情页及购物车部分功能
 ## 主要应用Vuex Vue-Router Vant组件库 better-scroll插件
 
 ## Project setup
