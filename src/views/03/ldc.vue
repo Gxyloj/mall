@@ -86,7 +86,7 @@ export default {
       this.message.time = year + "." + month + "." + strDate
     },
     a(value){
-      this.message.orderSum = this.message.orderCount * 2
+      this.message.orderSum = this.message.orderCount *2
       this.message.weekOrderCount += this.message.orderCount
       this.message.weekOrderSum += this.message.orderSum
     },
