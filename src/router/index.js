@@ -8,6 +8,7 @@ import xiaobei from "@/views/profile/xiaobei";
 import WorkBench from "@/views/profile/WorkBench";
 import lsls from "@/views/03/03"
 import lslsls from "@/views/03/0303"
+import ldc from "@/views/03/ldc";
 
 
 const routes = [
@@ -56,6 +57,13 @@ const routes = [
     component: lslsls,
     meta:{
       title:'😘😘😘'
+    }
+  },
+  {
+    path:'/ldc',
+    component: ldc,
+    meta:{
+      title:'03的日报'
     }
   }
 ]

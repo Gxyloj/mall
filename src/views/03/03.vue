@@ -201,8 +201,8 @@ export default {
   align-content: center;
   z-index: 1;
   height: 106vh;
-  left: 55%;
-  margin-left: -315px;
+  left: -17vw;
+  /*margin-left: -19vw;*/
 }
 
 .bgg li.sphere {
