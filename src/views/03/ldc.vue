@@ -31,6 +31,13 @@
     <el-button @click="copy" type="primary">
       下班！
     </el-button>
+    <el-form-item label="渠道到访">
+      <el-input-number v-model="this.message.qd" :min="0"></el-input-number>
+    </el-form-item>
+    <el-form-item label="自然到访">
+      <el-input-number v-model="this.message.zr" :min="0"></el-input-number>
+    </el-form-item>
+    <el-button type="success" @click="copy1">真的下班了</el-button>
 
   </div>
 </template>
@@ -51,12 +58,15 @@ export default {
         doneOrder:0,
         donePrice:0,
         refundCount:0,
-        refundPrice:0
+        refundPrice:0,
+        qd:0,
+        zr:0
       }
     }
   },
   created() {
     this.getDate()
+    // this.$cookies.set("token","12346","1d")
   },
   methods: {
     getDate() {
@@ -104,6 +114,23 @@ export default {
       this.message.totalOrder=this.$store.state.message.totalOrder
       this.message.totalPrice=this.$store.state.message.totalPrice
 
+    },
+    copy1(){
+      let copyMsg = '填写日期：' + this.message.time + '\n'
+        + '立项id：EXT24608' + '\n'
+        + '项目名称：玉林绿地城' + '\n'
+        + '今日刷卡张数：' + this.message.orderCount + '张' + '\n'
+        + '今日刷卡金额：' + this.message.orderSum + '万' + '\n'
+        + '成销张数：0张' + '\n'
+        + '成销金额：0万元' + '\n'
+        + '退款张数：0张' + '\n'
+        + '退款金额：0万元' + '\n'
+        + '甲方购房政策是否有异动：无' + '\n'
+        + '到访量：渠道' + this.message.qd + '组，' + '自然' + this.message.zr + '组' + '\n'
+        + '提交人：林珊'
+      this.$copyText(copyMsg).then(function (e){
+        alert('复制成功')
+      })
     }
   }
 }
@@ -124,6 +151,7 @@ export default {
 .el-button{
   margin-left: 50%;
   transform: translate(-50%);
+  margin-bottom: 10px;
 }
 
 </style>
