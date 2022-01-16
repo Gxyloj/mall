@@ -91,6 +91,11 @@ export default {
       this.message.weekOrderSum += this.message.orderSum
     },
     copy() {
+      this.$store.commit('daily',this.message)
+      this.message.weekOrderCount=this.$store.state.message.weekOrderCount
+      this.message.weekOrderSum=this.$store.state.message.weekOrderSum
+      this.message.totalOrder=this.$store.state.message.totalOrder
+      this.message.totalPrice=this.$store.state.message.totalPrice
       let copyMsg = '填写日期：' + this.message.time + '\n'
         + '立项id：EXT24608' + '\n'
         + '项目名称：玉林绿地城' + '\n'
@@ -98,8 +103,8 @@ export default {
         + '今日刷卡金额：' + this.message.orderSum + '万' + '\n'
         + '本周刷卡张数：' + this.message.weekOrderCount + '张' + '\n'
         + '本周刷卡金额：' + this.message.weekOrderSum + '万' + '\n'
-        + '共计刷卡张数：' + this.message.totalOrder + '张' + '\n'
-        + '共计刷卡金额：' + this.message.totalPrice + '万' + '\n'
+        + '共计刷卡张数：' + this.$store.state.message.totalOrder + '张' + '\n'
+        + '共计刷卡金额：' + this.$store.state.message.totalPrice + '万' + '\n'
         + '成销张数：0张' + '\n'
         + '成销金额：0万元' + '\n'
         + '退款张数：0张' + '\n'
@@ -108,11 +113,7 @@ export default {
       this.$copyText(copyMsg).then(function (e){
         alert('复制成功')
       })
-      this.$store.commit('daily',this.message)
-      this.message.weekOrderCount=this.$store.state.message.weekOrderCount
-      this.message.weekOrderSum=this.$store.state.message.weekOrderSum
-      this.message.totalOrder=this.$store.state.message.totalOrder
-      this.message.totalPrice=this.$store.state.message.totalPrice
+
 
     },
     copy1(){
