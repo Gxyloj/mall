@@ -1,3 +1,6 @@
+const Components = require('unplugin-vue-components/webpack')
+const { ElementPlusResolver } = require('unplugin-vue-components/resolvers')
+
 module.exports = {
   configureWebpack:{
     resolve:{
@@ -8,6 +11,20 @@ module.exports = {
         network:'@/network',
         views:'@/views'
       }
+    },
+    plugins: [
+      require('unplugin-vue-components/webpack')({ /* options */
+      }),
+      Components({
+        resolvers:[ElementPlusResolver()],
+      })
+    ],
+    module: {
+      rules: [{
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: 'javascript/auto'
+      }]
     }
   }
 }

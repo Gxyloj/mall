@@ -1,7 +1,13 @@
 import {createStore} from 'vuex'
 
 const state = {
-  cartList: []
+  cartList: [],
+  message:{
+    weekOrderCount:1,
+    weekOrderSum:3,
+    totalOrder:175,
+    totalPrice:367,
+  }
 }
 
 export default createStore({
@@ -31,6 +37,13 @@ export default createStore({
     },
     addToCart(state,payload){
       state.cartList.push(payload)
+    },
+    daily(state,payload){
+      // console.log(payload);
+      state.message.weekOrderCount += payload.orderCount
+      state.message.weekOrderSum += payload.orderSum
+      state.message.totalOrder += payload.orderCount
+      state.message.totalPrice += payload.orderSum
     }
 
 
@@ -45,6 +58,6 @@ export default createStore({
         payload.count = 1
         context.commit('addToCart',payload)
       }
-    }
+    },
   }
 })

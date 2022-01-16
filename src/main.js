@@ -4,6 +4,8 @@ import router from './router'
 import {Swipe,SwipeItem,Sticky,Grid,GridItem,Icon,ConfigProvider,Col,Row,NavBar,Button,ActionBar,ActionBarIcon,ActionBarButton,Checkbox, CheckboxGroup,Card,TreeSelect,Image as VanImage} from "vant";
 import { Toast } from 'vant';
 import store from './store'
+import VueClipboard  from 'vue-clipboard2'
+
 router.beforeEach((to, from, next) => {
   /* 路由发生变化修改页面title */
   if (to.meta.title) {
@@ -22,6 +24,7 @@ router.beforeEach((to, from, next) => {
 })(window)
 
 createApp(App)
+  .use(VueClipboard)
   .use(router)
   .use(store)
   .use(Swipe)
