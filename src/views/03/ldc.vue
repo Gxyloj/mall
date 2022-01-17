@@ -4,6 +4,10 @@
       <el-form-item label="今天是" label-width="100px">
         {{ this.message.time }}
       </el-form-item>
+      <el-form-item>
+        <span style="color: #606266;font-size:13px;margin:0 0 0 50px;">也是爱你的一天</span>
+      </el-form-item>
+      <div style="border: 1px solid #67c23a;padding-top: 15px;margin-bottom: 15px;border-radius: 2px">
       <el-form-item label="今日刷卡" label-width="100px">
         <el-input-number v-model="this.message.orderCount" :min="0" @change="a"/>
       </el-form-item>
@@ -11,6 +15,7 @@
         <el-input-number v-model="this.message.orderSum" :min="0" style="width: 85%"/>
         <span>&nbsp&nbsp万</span>
       </el-form-item>
+      </div>
       <el-form-item label="本周刷卡" label-width="100px" :inline="true">
         <el-input-number v-model="this.message.weekOrderCount" :min="0"/>
       </el-form-item>
@@ -18,6 +23,7 @@
         <el-input-number v-model="this.message.weekOrderSum" :min="0" style="width: 85%"/>
         <span>&nbsp&nbsp万</span>
       </el-form-item>
+      <p style="color: #606266;font-size:13px;margin-left: 50px;">昨天的本周数据{{this.msgBAK.weekOrderCount}}张{{this.msgBAK.weekOrderSum}}万</p>
       <el-form-item label="共计刷卡" label-width="100px" :inline="true">
         {{ this.message.totalOrder }}张
       </el-form-item>
@@ -67,7 +73,8 @@ export default {
         qd: 0,
         zr: 0
       },
-      test: '',
+      msgBAK:{},
+      dayWeek:null
     }
   },
   created() {
@@ -79,9 +86,11 @@ export default {
     // console.log(this.test);
     if (!utils.getCookie('message')) {
       utils.setCookie('message', JSON.stringify(this.message))
+      this.msgBAK = this.message
     } else {
       // console.log(utils.getCookie('message'));
       this.message = JSON.parse(utils.getCookie('message'))
+      this.msgBAK = JSON.parse(utils.getCookie('message'))
     }
 
 
@@ -92,7 +101,18 @@ export default {
       const year = date.getFullYear();
       let month = date.getMonth() + 1;
       let strDate = date.getDate();
+      this.dayWeek = 2
+      // date.getDay()
+      if (this.dayWeek === 1) {
+        this.$nextTick(() => {
+          alert('今天是周一捏，已经帮你把本周数据清零啦')
+          this.message.weekOrderSum = 0
+          this.message.weekOrderCount = 0
+          this.msgBAK.weekOrderCount = 0
+          this.msgBAK.weekOrderSum = 0
+        })
 
+      }
       if (month >= 1 && month <= 9) {
         month = "0" + month;
       }
@@ -105,8 +125,8 @@ export default {
     },
     a(value) {
       this.message.orderSum = this.message.orderCount * 2
-      this.message.weekOrderCount += this.message.orderCount
-      this.message.weekOrderSum += this.message.orderSum
+      this.message.weekOrderCount  = this.msgBAK.weekOrderCount + this.message.orderCount
+      this.message.weekOrderSum = this.msgBAK.weekOrderSum + this.message.orderSum
     },
 
     copy() {
@@ -115,8 +135,10 @@ export default {
       // this.message.weekOrderSum=this.$store.state.message.weekOrderSum
       // this.message.totalOrder=this.$store.state.message.totalOrder
       // this.message.totalPrice=this.$store.state.message.totalPrice
-      this.message.weekOrderCount += this.message.orderCount
-      this.message.weekOrderSum += this.message.orderSum
+      // if (this.dayWeek !== 1){
+      //   this.message.weekOrderCount += this.message.orderCount
+      //   this.message.weekOrderSum += this.message.orderSum
+      // }
       this.message.totalOrder += this.message.orderCount
       this.message.totalPrice += this.message.orderSum
       let copyMsg = '填写日期：' + this.message.time + '\n'
@@ -136,6 +158,8 @@ export default {
       this.$copyText(copyMsg).then(function (e) {
         alert('复制好咯，去开发商群粘贴吧')
       })
+      this.message.weekOrderCount += this.message.orderCount
+      this.message.weekOrderSum += this.message.orderSum
 
       utils.setCookie('message', JSON.stringify(this.message))
 
