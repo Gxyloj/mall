@@ -101,7 +101,7 @@ export default {
       const year = date.getFullYear();
       let month = date.getMonth() + 1;
       let strDate = date.getDate();
-      this.dayWeek = 2
+      this.dayWeek = date.getDay()
       // date.getDay()
       if (this.dayWeek === 1) {
         this.$nextTick(() => {
@@ -158,8 +158,7 @@ export default {
       this.$copyText(copyMsg).then(function (e) {
         alert('复制好咯，去开发商群粘贴吧')
       })
-      this.message.weekOrderCount += this.message.orderCount
-      this.message.weekOrderSum += this.message.orderSum
+
 
       utils.setCookie('message', JSON.stringify(this.message))
 
