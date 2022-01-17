@@ -134,7 +134,7 @@ export default {
         + '退款金额：0万元' + '\n'
         + '提交人：林珊'
       this.$copyText(copyMsg).then(function (e) {
-        alert('复制成功')
+        alert('复制好咯，去开发商群粘贴吧')
       })
 
       utils.setCookie('message', JSON.stringify(this.message))
@@ -155,7 +155,7 @@ export default {
         + '到访量：渠道' + this.message.qd + '组，' + '自然' + this.message.zr + '组' + '\n'
         + '提交人：林珊'
       this.$copyText(copyMsg).then(function (e) {
-        alert('复制成功')
+        alert('发到案场群可以下班啦')
       })
       this.message.orderCount = 0
       this.message.orderSum = 0
