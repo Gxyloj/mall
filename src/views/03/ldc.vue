@@ -43,6 +43,8 @@
 </template>
 
 <script>
+import utils from "@/common/utils/utils.ts";
+
 export default {
   name: "ldc",
   data() {
@@ -61,12 +63,19 @@ export default {
         refundPrice:0,
         qd:0,
         zr:0
-      }
+      },
+      test:'',
     }
   },
   created() {
     this.getDate()
     // this.$cookies.set("token","12346","1d")
+    utils.setCookie('test',111)
+    console.log(this.test);
+    this.test = utils.getCookie('test')
+    console.log(this.test);
+
+
   },
   methods: {
     getDate() {
