@@ -78,7 +78,6 @@ export default {
     }
   },
   created() {
-    this.getDate()
     // this.$cookies.set("token","12346","1d")
     // utils.setCookie('test',111)
     // console.log(this.test);
@@ -92,6 +91,8 @@ export default {
       this.message = JSON.parse(utils.getCookie('message'))
       this.msgBAK = JSON.parse(utils.getCookie('message'))
     }
+    this.getDate()
+
 
 
   },
