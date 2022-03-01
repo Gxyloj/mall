@@ -26,7 +26,8 @@ export function request(config) {
 
 export function request1(config) {
   const instance = axios.create({
-    baseURL: 'http://localhost:8092',
+    // baseURL: 'http://localhost:8092',
+    baseURL:'http://gxyloj.eicp.net:8092',
     timeout: 5000
   })
 
