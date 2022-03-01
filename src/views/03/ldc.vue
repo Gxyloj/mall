@@ -99,7 +99,7 @@ export default {
     // }
     this.getDate()
     //后端请求方法
-    axios.get('http://localhost:8092/ldc/findWeekData').then(res => {
+    axios.get('http://gxyloj.eicp.net:8092/ldc/findWeekData').then(res => {
       // console.log(res.data);
       this.msgBAK = res.data[0]
       this.message.weekOrderSum = res.data[0].weekOrderSum
