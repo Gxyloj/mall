@@ -8,13 +8,13 @@
         <span style="color: #606266;font-size:13px;margin:0 0 0 50px;">也是爱你的一天</span>
       </el-form-item>
       <div style="border: 1px solid #67c23a;padding-top: 15px;margin-bottom: 15px;border-radius: 2px">
-      <el-form-item label="今日刷卡" label-width="100px">
-        <el-input-number v-model="this.message.orderCount" :min="0" @change="a"/>
-      </el-form-item>
-      <el-form-item label="今日刷卡额" label-width="100px" :inline="true">
-        <el-input-number v-model="this.message.orderSum" :min="0" style="width: 85%"/>
-        <span>&nbsp&nbsp万</span>
-      </el-form-item>
+        <el-form-item label="今日刷卡" label-width="100px">
+          <el-input-number v-model="this.message.orderCount" :min="0" @change="a"/>
+        </el-form-item>
+        <el-form-item label="今日刷卡额" label-width="100px" :inline="true">
+          <el-input-number v-model="this.message.orderSum" :min="0" style="width: 85%"/>
+          <span>&nbsp&nbsp万</span>
+        </el-form-item>
       </div>
       <el-form-item label="本周刷卡" label-width="100px" :inline="true">
         <el-input-number v-model="this.message.weekOrderCount" :min="0"/>
@@ -23,7 +23,8 @@
         <el-input-number v-model="this.message.weekOrderSum" :min="0" style="width: 85%"/>
         <span>&nbsp&nbsp万</span>
       </el-form-item>
-      <p style="color: #606266;font-size:13px;margin-left: 50px;">昨天的本周数据{{this.msgBAK.weekOrderCount}}张{{this.msgBAK.weekOrderSum}}万</p>
+      <p style="color: #606266;font-size:13px;margin-left: 50px;">
+        昨天的本周数据{{ this.msgBAK.weekOrderCount }}张{{ this.msgBAK.weekOrderSum }}万</p>
       <el-form-item label="共计刷卡" label-width="100px" :inline="true">
         {{ this.message.totalOrder }}张
       </el-form-item>
@@ -52,6 +53,8 @@
 <script>
 import utils from "@/common/utils/utils.ts";
 import test from "@/components/common/TabControl/test";
+import axios from "axios";
+import {savaData} from "@/network/ldc";
 
 export default {
   name: "ldc",
@@ -59,13 +62,13 @@ export default {
     return {
       message: {
         time: '',
-        time1:'',
+        time1: '',
         orderCount: 0,
         orderSum: 0,
-        weekOrderCount: 9,
-        weekOrderSum: 18,
-        totalOrder: 204,
-        totalPrice: 426,
+        weekOrderCount: 0,
+        weekOrderSum: 0,
+        totalOrder: 0,
+        totalPrice: 0,
         doneOrder: 0,
         donePrice: 0,
         refundCount: 0,
@@ -73,8 +76,8 @@ export default {
         qd: 0,
         zr: 0
       },
-      msgBAK:{},
-      dayWeek:null
+      msgBAK: {},
+      dayWeek: null
     }
   },
   created() {
@@ -83,17 +86,29 @@ export default {
     // console.log(this.test);
     // this.test = utils.getCookie('test')
     // console.log(this.test);
-    if (!utils.getCookie('message')) {
-      utils.setCookie('message', JSON.stringify(this.message))
-      this.msgBAK = this.message
-    } else {
-      // console.log(utils.getCookie('message'));
-      this.message = JSON.parse(utils.getCookie('message'))
-      this.msgBAK = JSON.parse(utils.getCookie('message'))
-    }
+
+
+    //cookie方法
+    // if (!utils.getCookie('message')) {
+    //   utils.setCookie('message', JSON.stringify(this.message))
+    //   this.msgBAK = this.message
+    // } else {
+    //   // console.log(utils.getCookie('message'));
+    //   this.message = JSON.parse(utils.getCookie('message'))
+    //   this.msgBAK = JSON.parse(utils.getCookie('message'))
+    // }
     this.getDate()
+    //后端请求方法
+    axios.get('http://localhost:8092/ldc/findWeekData').then(res => {
+      // console.log(res.data);
+      this.msgBAK = res.data[0]
+      this.message.weekOrderSum = res.data[0].weekOrderSum
+      this.message.weekOrderCount = res.data[0].weekOrderCount
+      this.message.totalPrice = res.data[0].totalPrice
+      this.message.totalOrder = res.data[0].totalOrder
+      // {this.message.weekOrderSum,this.message.weekOrderCount,this.message.totalOrder,this.message.totalPrice} = res.data
 
-
+    })
 
   },
   methods: {
@@ -124,9 +139,9 @@ export default {
       this.message.time = year + "." + month + "." + strDate
       this.message.time1 = year + "/" + month + "/" + strDate
     },
-    a(value) {
+    a() {
       this.message.orderSum = this.message.orderCount * 2
-      this.message.weekOrderCount  = this.msgBAK.weekOrderCount + this.message.orderCount
+      this.message.weekOrderCount = this.msgBAK.weekOrderCount + this.message.orderCount
       this.message.weekOrderSum = this.msgBAK.weekOrderSum + this.message.orderSum
     },
 
@@ -160,8 +175,29 @@ export default {
         alert('复制好咯，去开发商群粘贴吧')
       })
 
+      let testData = {
+        weekOrderCount: 4,
+        weekOrderSum: 3,
+        totalOrder: 2,
+        totalPrice: 1
+      }
+      // utils.setCookie('message', JSON.stringify(this.message))
+      // console.log('能到这里')
+      // axios
+      //   .post('http://localhost:8092/ldc/saveData',{
+      //     params:{weekOrderCount:11111111}
+      //
+      //   })
+      //   .then(res => {
+      //     console.log(res);
+      //   })
+      //   .catch(err => {
+      //     console.log(err);
+      //   })
 
-      utils.setCookie('message', JSON.stringify(this.message))
+      savaData(this.message).then(res => {
+        console.log(res);
+      })
 
 
     },

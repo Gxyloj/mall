@@ -24,8 +24,6 @@ router.beforeEach((to, from, next) => {
 })(window)
 
 
-// const app = createApp(App)
-// app.config.globalProperties.$cookies = VueCookies;
 
 createApp(App)
   .use(VueClipboard)
