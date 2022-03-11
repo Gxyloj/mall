@@ -1,4 +1,4 @@
-# mall   项目地址：gxyloj.eicp.net:8091
+# mall   项目地址：http://gxyloj.eicp.net:8091/home
 
 ## 移动端在线商城，后端接口：http://152.136.185.210:7878/api/hy66
 ## 已完成：首页、分类、详情页及购物车部分功能
