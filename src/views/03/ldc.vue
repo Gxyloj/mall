@@ -97,7 +97,6 @@ export default {
     //   this.message = JSON.parse(utils.getCookie('message'))
     //   this.msgBAK = JSON.parse(utils.getCookie('message'))
     // }
-    this.getDate()
     //后端请求方法
     axios.get('http://gxyloj.eicp.net:8092/ldc/findWeekData').then(res => {
       // console.log(res.data);
@@ -107,8 +106,10 @@ export default {
       this.message.totalPrice = res.data[0].totalPrice
       this.message.totalOrder = res.data[0].totalOrder
       // {this.message.weekOrderSum,this.message.weekOrderCount,this.message.totalOrder,this.message.totalPrice} = res.data
+      this.getDate()
 
     })
+
 
   },
   methods: {

@@ -27,7 +27,7 @@
       </template>
     </TabbarItem>
 
-    <TabbarItem>
+    <TabbarItem path="login">
       <template v-slot:item-icon>
         <icon-svg icon-class="profile"></icon-svg>
       </template>

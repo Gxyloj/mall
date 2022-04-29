@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Profile from "@/views/profile/Profile";
+import Profile from "@/views/profile/Profile1";
 export default {
   name: "WorkBench",
   components: {Profile},

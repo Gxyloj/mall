@@ -11,7 +11,7 @@ const utils =
      * @param:  cvalue  any cookie值
      * @param:  exdays  number  cookie保存天数
      */
-    setCookie(cname:string, cvalue:any, exdays = 720)
+    setCookie(cname:string, cvalue:any, exdays = 1)
     {
       var d = new Date();
       d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));

@@ -1,11 +1,34 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import {Swipe,SwipeItem,Sticky,Grid,GridItem,Icon,ConfigProvider,Col,Row,NavBar,Button,ActionBar,ActionBarIcon,ActionBarButton,Checkbox, CheckboxGroup,Card,TreeSelect,Image as VanImage} from "vant";
+import {
+  Swipe,
+  SwipeItem,
+  Sticky,
+  Grid,
+  GridItem,
+  Icon,
+  ConfigProvider,
+  Col,
+  Row,
+  NavBar,
+  Button,
+  ActionBar,
+  ActionBarIcon,
+  ActionBarButton,
+  Checkbox,
+  CheckboxGroup,
+  Card,
+  TreeSelect,
+  Image,
+  Field as VanImage,
+  Field
+} from "vant";
 import { Toast } from 'vant';
 import store from './store'
 import VueClipboard  from 'vue-clipboard2'
 import VueCookies from 'vue-cookies'
+// import 'element-plus/theme-chalk/src/message.scss'
 
 router.beforeEach((to, from, next) => {
   /* 路由发生变化修改页面title */
@@ -22,6 +45,9 @@ router.beforeEach((to, from, next) => {
   //viewport-fit = cover，设置占满整个屏幕
   // metaEL.setAttribute("content","initial-scale=.5, maximum-scale=.5, minimum-scale=.5, user-scalable=no viewport-fit=cover");
 })(window)
+
+//main.ts文件
+import * as ElIconModules from '@element-plus/icons'
 
 
 
@@ -45,8 +71,11 @@ createApp(App)
   .use(Checkbox)
   .use(CheckboxGroup)
   .use(Card)
+  .use(Field)
   .use(ConfigProvider)
   .use(Toast)
   .use(TreeSelect)
   .use(VanImage)
+
   .mount('#app')
+

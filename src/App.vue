@@ -26,7 +26,8 @@ export default {
         this.$route.path.slice(1, 7) !== 'detail'&&
         this.$route.path!=='/love03'&&
         this.$route.path!=='/love0303'&&
-        this.$route.path!=='/ldc'
+        this.$route.path!=='/ldc'&&
+        this.$route.path!=='/login'
       // this.$route.path!=='/shoppingcart'
     }
   },

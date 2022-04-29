@@ -2,13 +2,14 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from "../views/home/Home";
 import Category from "../views/category/Category";
 import Shoppingcart from "../views/shoppingcart/Shoppingcart";
-import Profile from "../views/profile/Profile";
+import Profile from "../views/profile/Profile1";
 import Detail from "@/views/detail/Detail";
 import xiaobei from "@/views/profile/xiaobei";
 import WorkBench from "@/views/profile/WorkBench";
 import lsls from "@/views/03/03"
 import lslsls from "@/views/03/0303"
 import ldc from "@/views/03/ldc";
+import Login from "@/views/login/Login";
 
 
 const routes = [
@@ -65,6 +66,10 @@ const routes = [
     meta:{
       title:'03的日报'
     }
+  },
+  {
+    path: '/login',
+    component: Login,
   }
 ]
 

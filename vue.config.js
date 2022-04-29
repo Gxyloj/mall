@@ -1,5 +1,6 @@
 const Components = require('unplugin-vue-components/webpack')
 const {ElementPlusResolver} = require('unplugin-vue-components/resolvers')
+const path = require("path");
 
 module.exports = {
   configureWebpack: {
@@ -29,6 +30,12 @@ module.exports = {
         loader: "awesome-typescript-loader",
         exclude: /node_modules/
       }]
-    }
+    },
+    // pluginOptions: {
+    //   "style-resources-loader": {
+    //     preProcessor: "less",
+    //     patterns: [path.resolve(__dirname, "src/global.less")]
+    //   }
+    // },
   }
 }

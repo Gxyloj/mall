@@ -1,53 +1,25 @@
 <template>
-  <div class="profile">
-    <input type="text"  v-model="name">
-    <button @click="click" :name="name">GO</button>
-    <work-bench v-show="false"></work-bench>
-  </div>
-
+  {{info}}
 </template>
 
 <script>
-import WorkBench from "@/views/profile/WorkBench";
+import utils from "@/common/utils/utils.ts";
+
 export default {
   name: "Profile",
-  components:{WorkBench},
+  created() {
+    this.info.username = JSON.parse(utils.getCookie('username'))
+  },
   data(){
     return{
-      name:'姓名'
+      info:{
+        username:''
+      }
     }
   },
-  computed:{
-    // name:{
-    //   get(){
-    //     return this.$store.state.xb_name
-    //   },
-    //   set(value){
-    //     this.$store.commit('updateName',value)
-    //   }
-    //
-    // }
-  },
-  methods:{
-    click(){
-      this.$router.push('/workbench')
-    },
-
-  },
-  created() {
-    console.log(this.name);
-  }
 }
 </script>
 
 <style scoped>
-.profile{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  font-family: Helvetica;
-  background-color: #eee;
-}
 
 </style>
