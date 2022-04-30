@@ -51,3 +51,8 @@ export function scrollToTop(position) {
 
   smoothScroll();
 }
+
+
+export function getCart(){
+
+}

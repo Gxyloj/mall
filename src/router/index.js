@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from "../views/home/Home";
 import Category from "../views/category/Category";
 import Shoppingcart from "../views/shoppingcart/Shoppingcart";
-import Profile from "../views/profile/Profile1";
+import Profile from "../views/profile/Profile";
 import Detail from "@/views/detail/Detail";
 import xiaobei from "@/views/profile/xiaobei";
 import WorkBench from "@/views/profile/WorkBench";

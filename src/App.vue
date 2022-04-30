@@ -21,7 +21,6 @@ export default {
   computed: {
     showTabBar() {
       return this.$route.path !== '/xiaobei' &&
-        this.$route.path !== '/profile' &&
         this.$route.path !== '/workbench' &&
         this.$route.path.slice(1, 7) !== 'detail'&&
         this.$route.path!=='/love03'&&

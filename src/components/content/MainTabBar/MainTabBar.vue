@@ -27,7 +27,7 @@
       </template>
     </TabbarItem>
 
-    <TabbarItem path="login">
+    <TabbarItem @click="profile" path="profile">
       <template v-slot:item-icon>
         <icon-svg icon-class="profile"></icon-svg>
       </template>
@@ -44,10 +44,21 @@ import 'assets/img/icon'
 import Tabbar from "@/components/common/tabbar/Tabbar";
 import TabbarItem from "@/components/common/tabbar/TabbarItem";
 import iconSvg from "@/components/common/iconSvg";
+import utils from "@/common/utils/utils.ts";
 
 export default {
   name: "MainTabBar",
-  components:{Tabbar,TabbarItem,iconSvg}
+  components:{Tabbar,TabbarItem,iconSvg},
+  methods:{
+    profile(){
+      if (utils.getCookie('username').length !== 0){
+        console.log('有')
+        this.$router.push('/profile')
+      }else {
+        this.$router.push('/login')
+      }
+    }
+  }
 }
 </script>
 

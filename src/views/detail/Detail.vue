@@ -37,6 +37,8 @@ import BackTop from "@/components/content/BackTop/BackTop";
 import GoodList from "@/components/content/Goods/GoodList";
 import {getDetail, getRecommend} from "@/network/detail";
 import {debounce, scrollToTop} from "@/common/utils";
+import {pushCart} from "@/network/login";
+import utils from "@/common/utils/utils.ts";
 
 export default {
   name: "Detail",
@@ -174,18 +176,36 @@ export default {
       // console.log(this.offsetTop);
     },
     addToCart(){
-      // console.log('购物车')
-      this.product.image = this.swipeImg[0]
-      this.product.title = this.itemInfo.title
-      this.product.desc = this.itemInfo.desc
-      this.product.price = this.itemInfo.lowNowPrice
-      this.product.iid = this.itemInfo.iid
-      this.product.checked = true
-      // console.log(this.product)
+      if(utils.getCookie('username')){
+        console.log('登录了')
+        let Cart = {
+          username:utils.getCookie('username'),
+          cart:[
+            {iid:this.$route.params.iid,count:1}
+          ]
+        }
+        pushCart(Cart)
+          .then(res => {
+          console.log(res)
+          if (res.code === 200) this.$toast.success('添加成功')
+        })
 
-      // this.$store.commit('addCart',this.product)
-      this.$store.dispatch('addCart',this.product)
-      this.$toast.success('添加成功')
+      }else{
+        //没登录就存到vuex 登录的时候再存到服务器
+        this.product.image = this.swipeImg[0]
+        this.product.title = this.itemInfo.title
+        this.product.desc = this.itemInfo.desc
+        this.product.price = this.itemInfo.lowNowPrice
+        this.product.iid = this.itemInfo.iid
+        this.product.checked = true
+        // console.log(this.product)
+
+        // this.$store.commit('addCart',this.product)
+        this.$store.dispatch('addCart',this.product)
+        this.$toast.success('添加成功')
+      }
+      // console.log('购物车')
+
     }
 
 

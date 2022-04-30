@@ -28,7 +28,7 @@ import { Toast } from 'vant';
 import store from './store'
 import VueClipboard  from 'vue-clipboard2'
 import VueCookies from 'vue-cookies'
-// import 'element-plus/theme-chalk/src/message.scss'
+import * as ElIconModules from '@element-plus/icons'
 
 router.beforeEach((to, from, next) => {
   /* 路由发生变化修改页面title */
@@ -47,12 +47,10 @@ router.beforeEach((to, from, next) => {
 })(window)
 
 //main.ts文件
-import * as ElIconModules from '@element-plus/icons'
 
 
-
-createApp(App)
-  .use(VueClipboard)
+const app = createApp(App)
+app.use(VueClipboard)
   .use(router)
   .use(store)
   .use(Swipe)
@@ -78,4 +76,37 @@ createApp(App)
   .use(VanImage)
 
   .mount('#app')
+for (const iconName in ElIconModules) {
+  if (Reflect.has(ElIconModules, iconName)) {
+    const item = ElIconModules[iconName]
+    app.component(iconName, item)
+  }
+}
+// createApp(App)
+  // .use(VueClipboard)
+  // .use(router)
+  // .use(store)
+  // .use(Swipe)
+  // .use(SwipeItem)
+  // .use(Sticky)
+  // .use(Grid)
+  // .use(GridItem)
+  // .use(Icon)
+  // .use(Col)
+  // .use(Row)
+  // .use(NavBar)
+  // .use(Button)
+  // .use(ActionBar)
+  // .use(ActionBarIcon)
+  // .use(ActionBarButton)
+  // .use(Checkbox)
+  // .use(CheckboxGroup)
+  // .use(Card)
+  // .use(Field)
+  // .use(ConfigProvider)
+  // .use(Toast)
+  // .use(TreeSelect)
+  // .use(VanImage)
+  //
+  // .mount('#app')
 

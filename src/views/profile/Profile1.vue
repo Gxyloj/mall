@@ -10,7 +10,7 @@
 <script>
 import WorkBench from "@/views/profile/WorkBench";
 export default {
-  name: "Profile",
+  name: "Profile1",
   components:{WorkBench},
   data(){
     return{

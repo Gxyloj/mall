@@ -35,6 +35,9 @@
 <script>
 import NavBar from "@/components/common/navbar/NavBar";
 import ShoppingcartBottomBar from "@/views/shoppingcart/childComps/ShoppingcartBottomBar";
+import utils from "@/common/utils/utils.ts";
+import {findCartByUsername} from "@/network/login";
+import {getDetail} from "@/network/detail";
 
 export default {
   name: "Shoppingcart",
@@ -43,7 +46,7 @@ export default {
     return {
       // checked: true,
       amount: 0,
-      product: this.$store.state.cartList,
+      product: [],
       totalPrice: 0,
       isEditMode: false,
       isCheckAll:true,
@@ -51,6 +54,47 @@ export default {
     }
   },
   computed: {},
+  created() {
+    this.totalPriceChange()
+    // console.log(this.$store.state.cartList)
+
+  },
+  activated() {
+    let promise = new Promise(resolve => {
+      if (utils.getCookie('username')){
+        console.log('登录了')
+        this.product = []
+        findCartByUsername(utils.getCookie('username')).then(res => {
+          res.forEach(item => {
+            getDetail(item.iid).then(detail => {
+              this.product.push({
+                checked:true,
+                count:item.count,
+                desc:detail.result.itemInfo.desc,
+                iid:item.iid,
+                image:detail.result.itemInfo.topImages[0],
+                price:detail.result.itemInfo.lowNowPrice,
+                title:detail.result.itemInfo.title
+              })
+            })
+
+          })
+        })
+        resolve()
+      }else {
+        console.log('没登录 看看vuex')
+        this.product = this.$store.state.cartList
+        resolve()
+      }
+    })
+    promise.then(() => {
+      this.totalPriceChange()
+      this.isCheckedAll()
+    })
+
+
+
+  },
   methods: {
     switchChecked(index) {
       this.product[index].checked = !this.product[index].checked
@@ -119,17 +163,7 @@ export default {
 
 
   },
-  created() {
-    this.totalPriceChange()
-  },
-  updated() {
-    // this.totalPriceChange()//会循环调用
 
-  },
-  activated() {
-    this.totalPriceChange()
-    this.isCheckedAll()
-  }
 }
 </script>
 

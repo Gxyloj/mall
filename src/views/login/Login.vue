@@ -27,10 +27,11 @@
 
 <script>
 import {User, Lock} from "@element-plus/icons";
-import {login} from "@/network/login";
+import {login, pushCart} from "@/network/login";
 import crypto from 'crypto'
 import utils from "@/common/utils/utils.ts";
 import {ElMessage, ElMessageBox} from "element-plus";
+import 'element-plus/theme-chalk/el-message.css'
 
 export default {
   name: "Login",
@@ -38,31 +39,47 @@ export default {
     return {
       User, Lock,
       loginForm: {
-        username: '',
-        password:''
-      }
+        username: 'admin',
+        password: 'admin'
+      },
+      pushCart:[]
 
     }
   },
   created() {
+
   },
-  methods:{
-    login(){
+  methods: {
+    login() {
       login(this.loginForm).then(res => {
-        console.log(res);
-        if (res.code !== 200) return ElMessage.error('res.message')
-        utils.setCookie('username',JSON.stringify(res.info[0]))
-        // ElMessageBox.confirm(
-        //   '登录成功！点击确定返回个人页面',
-        //   '提示',
-        //   {
-        //     confirmButtonText:'确定',
-        //     type:'success'
-        //   }
-        // ).then(() => {
-        //   console.log('回去')
-        // })
+        if (res.code !== 200) return ElMessage.error(res.message)
+        utils.setCookie('username', res.username)
         ElMessage.success(res.message)
+        this.$router.push('/profile')
+        //  购物车
+        //往里加
+        if (this.$store.state.cartList.length !== 0){
+          console.log('vuex里有')
+          this.pushCart = []
+          if (this.$store.state.cartList){
+            //遍历购物车里的东西 整理到新数组
+            // console.log(this.pushCart)
+            this.$store.state.cartList.forEach(item => {
+              this.pushCart.push({iid:item.iid,count:item.count})
+            })
+            // console.log(this.pushCart)
+            // console.log(Array.isArray(this.pushCart))
+            let data = {username:res.username,cart:this.pushCart}
+            // console.log(data)
+            pushCart(data).then(res => {
+              console.log(res)
+            })
+          }
+        }else{
+          //往外取
+
+        }
+
       })
     }
   }
@@ -72,12 +89,12 @@ export default {
 <style scoped>
 .login {
   height: 100vh;
-  background: linear-gradient(200deg, #8198ff,#ff8198);
+  background: linear-gradient(200deg, #8198ff, #ff8198);
   padding: 10%
 }
 
 .common-layout {
-  color:#fff;
+  color: #fff;
   text-align: center;
   font-family: 幼圆;
   font-size: 2rem;
@@ -92,6 +109,7 @@ export default {
   border: 1px solid #dadada;
 
 }
+
 .el-main1 {
   width: 450px;
   height: 300px;
@@ -116,7 +134,8 @@ export default {
   border: 1px solid #dadada;
   background-color: transparent;
 }
-/deep/ .el-textarea__inner{
+
+/deep/ .el-textarea__inner {
   background-color: transparent;
 
 }

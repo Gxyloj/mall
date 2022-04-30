@@ -13,6 +13,7 @@ export default {
   },
   methods:{
     itemClick(){
+      if(this.path === 'profile') return
       this.$router.replace(this.path)
     }
   },
