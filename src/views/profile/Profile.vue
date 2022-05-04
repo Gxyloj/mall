@@ -6,7 +6,7 @@
       <p>{{ info.username }}</p>
     </div>
     <div class="my">
-      <div class="icon">
+      <div class="icon" @click="this.$router.push('/order')">
         <el-icon size="50px" color="#ff8198">
           <present/>
         </el-icon>
@@ -19,7 +19,7 @@
         <span>购物车</span>
 
       </div>
-      <div class="icon">
+      <div class="icon" @click="this.$router.push('/addressList')">
         <el-icon size="50px" color="#ff8198">
           <location/>
         </el-icon>
@@ -41,6 +41,9 @@ import {ElMessage} from "element-plus";
 
 export default {
   name: "Profile",
+  activated() {
+    this.info.username = utils.getCookie('username')
+  },
   created() {
     this.info.username = utils.getCookie('username')
   },
@@ -57,6 +60,7 @@ export default {
   methods: {
     logout(){
       utils.clearCookie('username')
+      this.info.username = ''
       ElMessage.success('注销成功')
       this.$router.push('/home')
     }

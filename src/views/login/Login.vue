@@ -16,18 +16,26 @@
             placeholder="密码"
             :prefix-icon="Lock"
           />
+          <el-input
+            v-if="isRegister"
+            v-model="loginForm.repeatPassword"
+            show-password
+            placeholder="确认密码"
+            :prefix-icon="Lock"
+          />
         </el-main>
       </el-container>
-      <el-button round color="#bf8dcc" @click="login">登录</el-button>
-      <el-button round color="#bf8dcc">注册</el-button>
-
+      <el-button v-if="!isRegister" round color="#bf8dcc" @click="login">登录</el-button>
+      <el-button v-if="!isRegister" round color="#bf8dcc" @click="this.isRegister = true">注册</el-button>
+      <el-button v-if="isRegister" round color="#bf8dcc" @click="toRegister">注册</el-button>
+      <el-button v-if="isRegister" round color="#bf8dcc" @click="this.isRegister = false">返回</el-button>
     </div>
   </div>
 </template>
 
 <script>
 import {User, Lock} from "@element-plus/icons";
-import {login, pushCart} from "@/network/login";
+import {login, pushCart,register} from "@/network/login";
 import crypto from 'crypto'
 import utils from "@/common/utils/utils.ts";
 import {ElMessage, ElMessageBox} from "element-plus";
@@ -38,9 +46,11 @@ export default {
   data() {
     return {
       User, Lock,
+      isRegister:false,
       loginForm: {
         username: 'admin',
-        password: 'admin'
+        password: 'admin',
+        repeatPassword:''
       },
       pushCart:[]
 
@@ -81,6 +91,17 @@ export default {
         }
 
       })
+    },
+    toRegister(){
+      if (this.loginForm.password === this.loginForm.repeatPassword){
+        register(this.loginForm).then(res => {
+          if(res.code !== 200 ) return ElMessage.error(res.message)
+          ElMessage.success(res.message)
+          this.isRegister = false
+        })
+      }else{
+        ElMessage.error('两次密码不一致')
+      }
     }
   }
 }

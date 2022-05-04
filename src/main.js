@@ -20,6 +20,11 @@ import {
   CheckboxGroup,
   Card,
   TreeSelect,
+  AddressEdit,
+  AddressList,
+  SubmitBar,
+  Popup,
+  RadioGroup, Radio,
   Image,
   Field as VanImage,
   Field
@@ -70,6 +75,12 @@ app.use(VueClipboard)
   .use(CheckboxGroup)
   .use(Card)
   .use(Field)
+  .use(AddressEdit)
+  .use(AddressList)
+  .use(SubmitBar)
+  .use(Popup)
+  .use(Radio)
+  .use(RadioGroup)
   .use(ConfigProvider)
   .use(Toast)
   .use(TreeSelect)

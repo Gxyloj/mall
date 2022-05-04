@@ -1,8 +1,11 @@
 <template>
   <div class="bottom-bar">
-    <van-checkbox v-model="isCheckAll" checked-color="#ff8198" class="checkbox" @click="switchCheckAll">全选</van-checkbox>
+    <van-checkbox v-model="isCheckAll"
+                  checked-color="#ff8198"
+                  class="checkbox"
+                  @click="switchCheckAll">全选</van-checkbox>
     <p>合计：￥{{totalPrice}}</p>
-    <button class="settlement" v-show="!isEditMode">结算({{amount}})</button>
+    <button class="settlement" v-show="!isEditMode" @click="submit">结算({{amount}})</button>
     <button class="settlement"
             v-show="isEditMode"
             :style="{backgroundColor:(isEditMode?bgc:'#ff4500')}"
@@ -45,6 +48,9 @@ export default {
     },
     deleteProduct(){
       this.$emit('deleteProduct')
+    },
+    submit(){
+      this.$emit('submit')
     }
   }
 

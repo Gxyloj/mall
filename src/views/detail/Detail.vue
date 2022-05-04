@@ -13,8 +13,8 @@
     <detail-parameter :detailParameter="detailParameter" ref="parameter"></detail-parameter>
     <detail-comment :detailComment="detailComment" ref="comment"></detail-comment>
     <good-list :goods="recommend" ref="recommend"></good-list>
-<!--    <detail-bottom-bar></detail-bottom-bar>-->
-    <detail-bottom-bar-vant @addToCart="addToCart"></detail-bottom-bar-vant>
+    <!--    <detail-bottom-bar></detail-bottom-bar>-->
+    <detail-bottom-bar-vant @addToCart="addToCart" @buyNow="buyNow"></detail-bottom-bar-vant>
     <back-top class="back-top1"
               v-show="flag"
               @click="scrollToTop(0)"></back-top>
@@ -37,7 +37,7 @@ import BackTop from "@/components/content/BackTop/BackTop";
 import GoodList from "@/components/content/Goods/GoodList";
 import {getDetail, getRecommend} from "@/network/detail";
 import {debounce, scrollToTop} from "@/common/utils";
-import {pushCart} from "@/network/login";
+import {addCart} from "@/network/login";
 import utils from "@/common/utils/utils.ts";
 
 export default {
@@ -68,9 +68,9 @@ export default {
       recommend: [],
       flag: false,
       navIndex: 0,
-      currentIndex:0,
+      currentIndex: 0,
       offsetTop: [],
-      product:{},
+      product: {},
     }
   },
   created() {
@@ -133,12 +133,11 @@ export default {
       //
       // }
       let length = this.offsetTop.length
-      for (let i = 0;i < length;i++){
+      for (let i = 0; i < length; i++) {
         if (this.currentIndex !== i
-          && ((i < length -1 && (scrollTop + 44 + 8) >= this.offsetTop[i]
-            && (scrollTop + 44 + 8) < this.offsetTop[i+1])
-            || (i === length - 1 && (scrollTop + 44 + 8) >= this.offsetTop[i])))
-        {
+          && ((i < length - 1 && (scrollTop + 44 + 8) >= this.offsetTop[i]
+              && (scrollTop + 44 + 8) < this.offsetTop[i + 1])
+            || (i === length - 1 && (scrollTop + 44 + 8) >= this.offsetTop[i]))) {
           this.currentIndex = i;
           this.$refs.nav.currentIndex = this.currentIndex
         }
@@ -175,37 +174,41 @@ export default {
       this.offsetTop.push(this.$refs.recommend.$el.offsetTop)
       // console.log(this.offsetTop);
     },
-    addToCart(){
-      if(utils.getCookie('username')){
+    addToCart() {
+      if (utils.getCookie('username')) {
         console.log('登录了')
         let Cart = {
-          username:utils.getCookie('username'),
-          cart:[
-            {iid:this.$route.params.iid,count:1}
+          username: utils.getCookie('username'),
+          cart: [
+            {iid: this.$route.params.iid, count: 1}
           ]
         }
-        pushCart(Cart)
-          .then(res => {
+        addCart(Cart).then(res => {
           console.log(res)
           if (res.code === 200) this.$toast.success('添加成功')
         })
 
-      }else{
+      } else {
         //没登录就存到vuex 登录的时候再存到服务器
-        this.product.image = this.swipeImg[0]
-        this.product.title = this.itemInfo.title
-        this.product.desc = this.itemInfo.desc
-        this.product.price = this.itemInfo.lowNowPrice
-        this.product.iid = this.itemInfo.iid
-        this.product.checked = true
-        // console.log(this.product)
-
-        // this.$store.commit('addCart',this.product)
-        this.$store.dispatch('addCart',this.product)
-        this.$toast.success('添加成功')
+        // this.product.image = this.swipeImg[0]
+        // this.product.title = this.itemInfo.title
+        // this.product.desc = this.itemInfo.desc
+        // this.product.price = this.itemInfo.lowNowPrice
+        // this.product.iid = this.itemInfo.iid
+        // this.product.checked = true
+        // // console.log(this.product)
+        //
+        // // this.$store.commit('addCart',this.product)
+        // this.$store.dispatch('addCart', this.product)
+        // this.$toast.success('添加成功')
+        this.$router.push('/login')
       }
       // console.log('购物车')
 
+    },
+    buyNow(){
+      this.addToCart()
+      this.$router.push('/shoppingcart')
     }
 
 
