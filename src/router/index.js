@@ -6,9 +6,6 @@ import Profile from "../views/profile/Profile";
 import Detail from "@/views/detail/Detail";
 import xiaobei from "@/views/profile/xiaobei";
 import WorkBench from "@/views/profile/WorkBench";
-import lsls from "@/views/03/03"
-import lslsls from "@/views/03/0303"
-import ldc from "@/views/03/ldc";
 import Login from "@/views/login/Login";
 import Address from "@/views/address/EditAddress";
 import addressList from "@/views/address/AddressList";
@@ -47,28 +44,6 @@ const routes = [
   {
     path: '/workbench',
     component: WorkBench
-  },
-  {
-    path: '/love03',
-    component: lsls,
-    meta: {
-      title: '林珊 😘 '
-    }
-
-  },
-  {
-    path: '/love0303',
-    component: lslsls,
-    meta: {
-      title: '😘😘😘'
-    }
-  },
-  {
-    path: '/ldc',
-    component: ldc,
-    meta: {
-      title: '03的日报'
-    }
   },
   {
     path: '/login',
