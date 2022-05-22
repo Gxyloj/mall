@@ -2,9 +2,9 @@
   <div class="login">
     <div class="common-layout">
       <el-container>
-        <el-header>登录</el-header>
+        <el-header v-if="!isRegister">登录</el-header>
+        <el-header v-if="isRegister">注册</el-header>
         <el-main>
-
           <el-input
             v-model="loginForm.username"
             placeholder="用户名"
@@ -85,11 +85,7 @@ export default {
               console.log(res)
             })
           }
-        }else{
-          //往外取
-
-        }
-
+        }else{}
       })
     },
     toRegister(){

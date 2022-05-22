@@ -134,8 +134,10 @@ export default {
             // this.$refs.scroll.scroll.finishPullUp()
           })
         }
+        this.goods[type].list = this.goods[type].list.sort(() => {
+          return Math.random() - 0.5
+        })
       })
-
     },
     tabClick(index) {
       switch (index) {

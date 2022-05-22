@@ -42,7 +42,6 @@ export default {
   },
   created() {
     getCategoryList().then(res => {
-
       res.data.category.list.forEach((i, index) => {
         // console.log(i)
         this.items.push({text: '', categoryKey: ''})

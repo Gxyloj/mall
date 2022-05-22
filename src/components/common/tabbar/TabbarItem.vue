@@ -35,8 +35,8 @@ export default {
   }
 
   .active{
-    fill: #1ba784;
-    color: #1ba784;
+    fill: #ff8198;
+    color: #ff8198;
     -webkit-transition: color .7s;
   }
 </style>
